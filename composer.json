@@ -1,8 +1,10 @@
 {
-  "name": "z7zmey/RValidate",
+  "name": "z7zmey/rvalidate",
   "description": "Recursive array validator",
-  "keywords": ["rvalidate", "matcher", "validation", "array", "json", "schema", "pattern"],
+  "keywords": ["rvalidate", "matcher", "validation", "validate", "validator", "array", "schema", "pattern", "recursive", "z7zmey"],
+  "type": "library",
   "license": "MIT",
+  "homepage": "https://github.com/z7zmey/RValidate",
   "authors": [
     {
       "name": "Vadim Slizov",
@@ -10,7 +12,9 @@
     }
   ],
   "support": {
-    "email": "z7zmey@gmail.com"
+    "email": "z7zmey@gmail.com",
+    "source": "https://github.com/z7zmey/RValidate",
+    "issues": "https://github.com/z7zmey/RValidate/issues"
   },
   "require": {
     "php": ">=5.6"
