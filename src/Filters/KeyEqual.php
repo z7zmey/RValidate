@@ -2,8 +2,9 @@
 
 namespace RValidate\Filters;
 
+use RValidate\Interfaces;
 
-class KeyEqual implements \RValidate\Interfaces\Filter
+class KeyEqual implements Interfaces\Filter
 {
     private $key;
     private $equal;

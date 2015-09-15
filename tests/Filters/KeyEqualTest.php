@@ -2,12 +2,13 @@
 
 namespace Filters;
 
+use RValidate\Filters\KeyEqual;
 
 class KeyEqualTest extends \PHPUnit_Framework_TestCase
 {
     public function testFilter_rightData()
     {
-        $filter = new \RValidate\Filters\KeyEqual('foo', 'bar');
+        $filter = new KeyEqual('foo', 'bar');
 
         $data = [
             ['foo' => 'bar'],
@@ -21,7 +22,7 @@ class KeyEqualTest extends \PHPUnit_Framework_TestCase
 
     public function testFilter_wrongData()
     {
-        $filter = new \RValidate\Filters\KeyEqual('foo', 'bar');
+        $filter = new KeyEqual('foo', 'bar');
 
         $data = [
             'foo' => 'bar',
@@ -35,7 +36,7 @@ class KeyEqualTest extends \PHPUnit_Framework_TestCase
 
     public function testFilter_wrongArray()
     {
-        $filter = new \RValidate\Filters\KeyEqual('foo', 'bar');
+        $filter = new KeyEqual('foo', 'bar');
 
         $data = '';
 

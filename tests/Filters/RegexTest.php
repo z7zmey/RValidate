@@ -2,12 +2,13 @@
 
 namespace Filters;
 
+use RValidate\Filters\Regex;
 
 class RegexTest extends \PHPUnit_Framework_TestCase
 {
     public function testFilter_rightData()
     {
-        $filter = new \RValidate\Filters\Regex('/foo_\d/');
+        $filter = new Regex('/foo_\d/');
 
         $data = [
             'foo_1' => 'bar',
@@ -21,7 +22,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase
 
     public function testFilter_wrongData()
     {
-        $filter = new \RValidate\Filters\Regex('/foo_\d/');
+        $filter = new Regex('/foo_\d/');
 
         $data = '';
 

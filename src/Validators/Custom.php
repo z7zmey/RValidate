@@ -2,8 +2,10 @@
 
 namespace RValidate\Validators;
 
+use RValidate\Interfaces;
+use RValidate\Exceptions;
 
-class Custom implements \RValidate\Interfaces\Validator
+class Custom implements Interfaces\Validator
 {
     private $func;
     private $errorMessage;
@@ -17,7 +19,7 @@ class Custom implements \RValidate\Interfaces\Validator
     public function validate($data) 
     {
         if (!call_user_func($this->func, $data)) {
-            throw new \RValidate\Exceptions\ValidateException($this->errorMessage);
+            throw new Exceptions\ValidateException($this->errorMessage);
         }
         
         return true;

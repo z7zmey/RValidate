@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Vadim
- * Date: 14.09.15
- * Time: 19:26
- */
 
 namespace Exceptions;
 

@@ -2,8 +2,9 @@
 
 namespace RValidate\Filters;
 
+use RValidate\Interfaces;
 
-class Regex implements \RValidate\Interfaces\Filter
+class Regex implements Interfaces\Filter
 {
     private $pattern;
     

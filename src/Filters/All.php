@@ -2,8 +2,9 @@
 
 namespace RValidate\Filters;
 
+use RValidate\Interfaces;
 
-class All implements \RValidate\Interfaces\Filter
+class All implements Interfaces\Filter
 {
     public function filter($data)
     {

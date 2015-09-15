@@ -2,8 +2,9 @@
 
 namespace RValidate\Filters;
 
+use RValidate\Interfaces;
 
-class Equal implements \RValidate\Interfaces\Filter
+class Equal implements Interfaces\Filter
 {
     private $pattern;
     

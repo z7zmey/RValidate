@@ -1,20 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Vadim
- * Date: 14.09.15
- * Time: 18:39
- */
 
 namespace Validators;
 
-use RValidate\Validators as V;
+use RValidate\Validators\KeyExist;
 
 class KeyExistTest extends \PHPUnit_Framework_TestCase
 {
     public function testValidate()
     {
-        $validator = new V\KeyExist('key');
+        $validator = new KeyExist('key');
 
         $result = $validator->validate(['key' => '']);
 
@@ -26,7 +20,7 @@ class KeyExistTest extends \PHPUnit_Framework_TestCase
      */
     public static function testValidate_exception()
     {
-        $validator = new V\KeyExist('key');
+        $validator = new KeyExist('key');
 
         $validator->validate('string');
     }

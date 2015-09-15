@@ -2,13 +2,15 @@
 
 namespace RValidate\Validators;
 
+use RValidate\Interfaces;
+use RValidate\Exceptions;
 
-class String implements \RValidate\Interfaces\Validator
+class String implements Interfaces\Validator
 {
     public function validate($data) 
     {
         if (!is_string($data)) {
-            throw new \RValidate\Exceptions\ValidateException('must be string');
+            throw new Exceptions\ValidateException('must be string');
         }
         
         return true;

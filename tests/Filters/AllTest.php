@@ -2,12 +2,13 @@
 
 namespace Filters;
 
+use RValidate\Filters\All;
 
 class AllTest extends \PHPUnit_Framework_TestCase
 {
     public function testFilter_rightData()
     {
-        $filter = new \RValidate\Filters\All();
+        $filter = new All();
         
         $data = ['key' => 'val'];
         
@@ -18,7 +19,7 @@ class AllTest extends \PHPUnit_Framework_TestCase
 
     public function testFilter_wrongData()
     {
-        $filter = new \RValidate\Filters\All();
+        $filter = new All();
 
         $data = 'some string';
 

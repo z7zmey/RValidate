@@ -1,8 +1,11 @@
 <?php
 
 use RValidate\Validator;
-use RValidate\Iterators\Pattern as P;
-use RValidate\Validators as V;
+use RValidate\Iterators\Pattern;
+use RValidate\Validators\String;
+use RValidate\Validators\Required;
+use RValidate\Validators\Integer;
+use RValidate\Validators\KeyExist;
 
 
 class ValidatorTest extends PHPUnit_Framework_TestCase
@@ -11,7 +14,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     {
         $data = 'string value';
 
-        $pattern = new P(new V\String());
+        $pattern = new Pattern(new String());
 
         $result = Validator::run($data, $pattern);
 
@@ -25,7 +28,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     {
         $data = null;
 
-        $pattern = new P(new V\Required());
+        $pattern = new Pattern(new Required());
 
         Validator::run($data, $pattern);
     }
@@ -38,9 +41,9 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             ]
         ];
 
-        $pattern = new P(
-            P::get('param_1')->validate(
-                P::get('param_2')->validate(new V\String())
+        $pattern = new Pattern(
+            Pattern::get('param_1')->validate(
+                Pattern::get('param_2')->validate(new String())
             )
         );
 
@@ -60,9 +63,9 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             ]
         ];
 
-        $pattern = new P(
-            P::get('param_1')->validate(
-                P::get('param_2')->validate(new V\Integer())
+        $pattern = new Pattern(
+            Pattern::get('param_1')->validate(
+                Pattern::get('param_2')->validate(new Integer())
             )
         );
 
@@ -79,10 +82,10 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             ]
         ];
 
-        $pattern = new P(
-            new V\KeyExist('Param_2'),
-            P::get('param_1')->validate(
-                P::get('param_2')->validate(new V\Integer())
+        $pattern = new Pattern(
+            new KeyExist('Param_2'),
+            Pattern::get('param_1')->validate(
+                Pattern::get('param_2')->validate(new Integer())
             )
         );
 

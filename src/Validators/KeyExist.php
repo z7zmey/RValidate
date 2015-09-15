@@ -2,8 +2,10 @@
 
 namespace RValidate\Validators;
 
+use RValidate\Interfaces;
+use RValidate\Exceptions;
 
-class KeyExist implements \RValidate\Interfaces\Validator
+class KeyExist implements Interfaces\Validator
 {
     private $key;
     
@@ -15,7 +17,7 @@ class KeyExist implements \RValidate\Interfaces\Validator
     public function validate($data) 
     {
         if (!is_array($data) || !array_key_exists($this->key, $data)) {
-            throw new \RValidate\Exceptions\ValidateException('must contain key ' . $this->key);
+            throw new Exceptions\ValidateException('must contain key ' . $this->key);
         }
 
         return true;

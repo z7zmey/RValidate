@@ -2,6 +2,8 @@
 
 namespace RValidate\Iterators;
 
+use RValidate\Interfaces;
+use RValidate\Filters\Equal;
 
 class Pattern extends AbstractIterator
 {
@@ -17,7 +19,7 @@ class Pattern extends AbstractIterator
         return new self();
     }
 
-    public static function filter(\RValidate\Interfaces\Filter $filter = null)
+    public static function filter(Interfaces\Filter $filter = null)
     {
         $instance = new self();
         $instance->setFilter($filter);
@@ -27,10 +29,10 @@ class Pattern extends AbstractIterator
 
     public static function get($key)
     {
-        return self::filter(new \RValidate\Filters\Equal($key));
+        return self::filter(new Equal($key));
     }
     
-    public function setFilter(\RValidate\Interfaces\Filter $filter = null)
+    public function setFilter(Interfaces\Filter $filter = null)
     {
         $this->filter = $filter;
     }

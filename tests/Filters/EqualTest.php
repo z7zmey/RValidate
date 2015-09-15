@@ -2,12 +2,13 @@
 
 namespace Filters;
 
+use RValidate\Filters\Equal;
 
 class EqualTest extends \PHPUnit_Framework_TestCase
 {
     public function testFilter_rightData()
     {
-        $filter = new \RValidate\Filters\Equal('foo');
+        $filter = new Equal('foo');
 
         $data = ['foo' => 'foo', 'bar' => 'bar'];
 
@@ -18,7 +19,7 @@ class EqualTest extends \PHPUnit_Framework_TestCase
 
     public function testFilter_wrongData()
     {
-        $filter = new \RValidate\Filters\Equal('foo');
+        $filter = new Equal('foo');
 
         $data = ['bar' => 'bar'];
 

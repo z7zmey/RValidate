@@ -2,13 +2,13 @@
 
 namespace Validators;
 
-use RValidate\Validators as V;
+use RValidate\Validators\String;
 
 class StringTest extends \PHPUnit_Framework_TestCase
 {
     public function testValidate()
     {
-        $validator = new V\String();
+        $validator = new String();
         
         $result = $validator->validate('test string');
         
@@ -20,7 +20,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
      */
     public static function testValidate_exception()
     {
-        $validator = new V\String();
+        $validator = new String();
 
         $validator->validate(22);
     }

@@ -1,20 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Vadim
- * Date: 14.09.15
- * Time: 18:29
- */
 
 namespace Validators;
 
-use RValidate\Validators as V;
+use RValidate\Validators\Integer;
 
 class IntegerTest extends \PHPUnit_Framework_TestCase
 {
     public function testValidate()
     {
-        $validator = new V\Integer();
+        $validator = new Integer();
 
         $result = $validator->validate(11);
 
@@ -26,7 +20,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public static function testValidate_exception()
     {
-        $validator = new V\Integer();
+        $validator = new Integer();
 
         $validator->validate('string');
     }
