@@ -5,6 +5,11 @@ namespace RValidate\Iterators;
 
 class Pattern extends AbstractIterator
 {
+    public function __construct(...$rules)
+    {
+        $this->storage = array_merge($this->storage, $rules);
+    }
+    
     protected $filter;
 
     public static function all()

@@ -11,7 +11,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     {
         $data = 'string value';
 
-        $pattern = P::all()->validate(new V\String());
+        $pattern = new P(new V\String());
 
         $result = Validator::run($data, $pattern);
 
@@ -25,7 +25,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     {
         $data = null;
 
-        $pattern = P::all()->validate(new V\Required());
+        $pattern = new P(new V\Required());
 
         Validator::run($data, $pattern);
     }
@@ -38,7 +38,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             ]
         ];
 
-        $pattern = P::all()->validate(
+        $pattern = new P(
             P::get('param_1')->validate(
                 P::get('param_2')->validate(new V\String())
             )
@@ -60,7 +60,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             ]
         ];
 
-        $pattern = P::all()->validate(
+        $pattern = new P(
             P::get('param_1')->validate(
                 P::get('param_2')->validate(new V\Integer())
             )
@@ -79,7 +79,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             ]
         ];
 
-        $pattern = P::all()->validate(
+        $pattern = new P(
             new V\KeyExist('Param_2'),
             P::get('param_1')->validate(
                 P::get('param_2')->validate(new V\Integer())
