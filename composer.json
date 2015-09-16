@@ -1,7 +1,10 @@
 {
   "name": "z7zmey/rvalidate",
   "description": "Recursive array validator",
-  "keywords": ["rvalidate", "matcher", "validation", "validate", "validator", "array", "schema", "pattern", "recursive", "z7zmey"],
+  "keywords": [
+    "rvalidate", "matcher", "validation", "validate", "validator", "array", 
+    "schema", "pattern", "recursive", "nested", "complex",  "z7zmey"
+  ],
   "type": "library",
   "license": "MIT",
   "homepage": "https://github.com/z7zmey/RValidate",
