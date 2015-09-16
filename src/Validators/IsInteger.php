@@ -5,7 +5,7 @@ namespace RValidate\Validators;
 use RValidate\Interfaces;
 use RValidate\Exceptions;
 
-class Integer implements Interfaces\Validator
+class IsInteger implements Interfaces\Validator
 {
     public function validate($data) 
     {

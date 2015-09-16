@@ -2,13 +2,13 @@
 
 namespace Validators;
 
-use RValidate\Validators\Arr;
+use RValidate\Validators\IsArray;
 
-class ArrTest extends \PHPUnit_Framework_TestCase
+class IsArrayTest extends \PHPUnit_Framework_TestCase
 {
     public function testValidate()
     {
-        $validator = new Arr();
+        $validator = new IsArray();
         
         $result = $validator->validate([]);
         
@@ -20,7 +20,7 @@ class ArrTest extends \PHPUnit_Framework_TestCase
      */
     public static function testValidate_exception()
     {
-        $validator = new Arr();
+        $validator = new IsArray();
 
         $validator->validate(22);
     }

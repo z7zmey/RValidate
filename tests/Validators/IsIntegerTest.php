@@ -2,13 +2,13 @@
 
 namespace Validators;
 
-use RValidate\Validators\Integer;
+use RValidate\Validators\IsInteger;
 
-class IntegerTest extends \PHPUnit_Framework_TestCase
+class IsIntegerTest extends \PHPUnit_Framework_TestCase
 {
     public function testValidate()
     {
-        $validator = new Integer();
+        $validator = new IsInteger();
 
         $result = $validator->validate(11);
 
@@ -20,7 +20,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public static function testValidate_exception()
     {
-        $validator = new Integer();
+        $validator = new IsInteger();
 
         $validator->validate('string');
     }

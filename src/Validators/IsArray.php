@@ -5,7 +5,7 @@ namespace RValidate\Validators;
 use RValidate\Interfaces;
 use RValidate\Exceptions;
 
-class Arr implements Interfaces\Validator
+class IsArray implements Interfaces\Validator
 {
     public function validate($data) 
     {

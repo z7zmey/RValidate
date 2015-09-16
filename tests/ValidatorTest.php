@@ -2,9 +2,9 @@
 
 use RValidate\Validator;
 use RValidate\Iterators\Pattern;
-use RValidate\Validators\String;
+use RValidate\Validators\IsString;
 use RValidate\Validators\Required;
-use RValidate\Validators\Integer;
+use RValidate\Validators\IsInteger;
 use RValidate\Validators\KeyExist;
 
 
@@ -14,7 +14,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     {
         $data = 'string value';
 
-        $pattern = new Pattern(new String());
+        $pattern = new Pattern(new IsString());
 
         $result = Validator::run($data, $pattern);
 
@@ -43,7 +43,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
 
         $pattern = new Pattern(
             Pattern::get('param_1')->validate(
-                Pattern::get('param_2')->validate(new String())
+                Pattern::get('param_2')->validate(new IsString())
             )
         );
 
@@ -65,7 +65,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
 
         $pattern = new Pattern(
             Pattern::get('param_1')->validate(
-                Pattern::get('param_2')->validate(new Integer())
+                Pattern::get('param_2')->validate(new IsInteger())
             )
         );
 
@@ -85,7 +85,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $pattern = new Pattern(
             new KeyExist('Param_2'),
             Pattern::get('param_1')->validate(
-                Pattern::get('param_2')->validate(new Integer())
+                Pattern::get('param_2')->validate(new IsInteger())
             )
         );
 
