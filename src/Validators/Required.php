@@ -9,7 +9,7 @@ class Required implements Interfaces\Validator
 {
     public function validate($data) 
     {
-        if (!isset($data)) {
+        if (null === $data) {
             throw new Exceptions\ValidateException('required');
         }
         

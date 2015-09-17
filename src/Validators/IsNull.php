@@ -9,7 +9,7 @@ class IsNull implements Interfaces\Validator
 {
     public function validate($data) 
     {
-        if (!is_null($data)) {
+        if (null !== $data) {
             throw new Exceptions\ValidateException('must be null');
         }
         
