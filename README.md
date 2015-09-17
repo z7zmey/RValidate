@@ -52,7 +52,7 @@ $data = [
 ];
 
 $pattern = new Pattern(
-    new V\KeyExist('library'),
+    new V\Key('library'),
     new V\Custom(function($data) {return is_array($data);}, 'must be array'),
     new V\IsArray(),
     Pattern::get('library')->validate(
@@ -72,7 +72,7 @@ $pattern = new Pattern(
     ),
     Pattern::get('data')->validate(
         Pattern::filter(new F\KeyEqual('type', 'article'))->validate(
-            new V\KeyExist('title'),
+            new V\Key('title'),
             Pattern::get('title')->validate(new V\IsString())
         ),
         Pattern::filter(new F\KeyEqual('type', 'book'))->validate(

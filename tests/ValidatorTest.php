@@ -5,7 +5,7 @@ use RValidate\Iterators\Pattern;
 use RValidate\Validators\IsString;
 use RValidate\Validators\Required;
 use RValidate\Validators\IsInteger;
-use RValidate\Validators\KeyExist;
+use RValidate\Validators\Key;
 
 
 class ValidatorTest extends PHPUnit_Framework_TestCase
@@ -83,7 +83,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         ];
 
         $pattern = new Pattern(
-            new KeyExist('Param_2'),
+            new Key('Param_2'),
             Pattern::get('param_1')->validate(
                 Pattern::get('param_2')->validate(new IsInteger())
             )

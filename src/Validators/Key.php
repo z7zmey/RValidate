@@ -5,7 +5,7 @@ namespace RValidate\Validators;
 use RValidate\Interfaces;
 use RValidate\Exceptions;
 
-class KeyExist implements Interfaces\Validator
+class Key implements Interfaces\Validator
 {
     private $key;
     

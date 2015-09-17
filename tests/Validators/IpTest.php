@@ -2,15 +2,15 @@
 
 namespace Validators;
 
-use RValidate\Validators\KeyExist;
+use RValidate\Validators\Ip;
 
-class KeyExistTest extends \PHPUnit_Framework_TestCase
+class IpTest extends \PHPUnit_Framework_TestCase
 {
     public function testValidate()
     {
-        $validator = new KeyExist('key');
+        $validator = new Ip();
 
-        $result = $validator->validate(['key' => '']);
+        $result = $validator->validate('4.4.4.4');
 
         static::assertTrue($result);
     }
@@ -20,8 +20,8 @@ class KeyExistTest extends \PHPUnit_Framework_TestCase
      */
     public static function testValidate_exception()
     {
-        $validator = new KeyExist('key');
+        $validator = new Ip();
 
-        $validator->validate('string');
+        $validator->validate('255.255.25566');
     }
 }
