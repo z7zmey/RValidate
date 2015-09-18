@@ -13,7 +13,7 @@ use RValidate\Filters as F;
 $data = [
     'library' => [
         'name' => 'Some library',
-        'books_count' => 22567,
+        'books_count' => '22567',
     ],
     'books' => [
         'book_1' => [
@@ -25,8 +25,8 @@ $data = [
             'author' => 'unknown author',
         ],
         'book_33' => [
-            'name' => null,
-            'author' => '',
+            'name' => '',
+            'author' => null,
         ],
         'article_9' => [
             'title' => 'some article',
@@ -43,41 +43,58 @@ $data = [
         ],
         [
             'type' => 'article',
-            'title' => 22
+            'title' => 47
         ],
         [
             'type' => 'unvalidated'
         ],
+        'wrong value'
     ],
 ];
 
+$bookPattern = new Pattern(
+    new V\Keys(['name', 'author']),
+    Pattern::get('name')->validate(new V\IsString()),
+    Pattern::get('author')->validate(new V\NotEmpty(), new V\IsString())
+);
+
+$articlePattern = new Pattern(
+    Pattern::get('title')->validate(new V\NotEmpty(), new V\IsString()),
+    Pattern::get('author')->validate(new V\NotEmpty(), new V\IsString())
+);
+
+$dataFieldValidationFunc = function($data) {
+    if (!is_array($data)) {
+        return false;
+    }
+    foreach($data as $val) {
+        if (
+            !is_array($val) ||
+            !array_key_exists('type', $val) ||
+            !in_array($val['type'], ['book', 'article'], true)
+        ) {
+            return false;
+        }
+    }
+    return true;
+};
+
 $pattern = new Pattern(
-    new V\Key('library'),
-    new V\Custom(function($data) {return is_array($data);}, 'must be array'),
     new V\IsArray(),
+    new V\keys(['library', 'books']),
     Pattern::get('library')->validate(
         Pattern::get('name')->validate(new V\IsString()),
         Pattern::get('address')->validate(new V\IsString()),
         Pattern::get('books_count')->validate(new V\IsInteger())
     ),
     Pattern::get('books')->validate(
-        Pattern::filter(new F\Regex('/book_\d+/'))->validate(
-            Pattern::get('name')->validate(new V\IsString()),
-            Pattern::get('author')->validate(new V\NotEmpty(), new V\IsString())
-        ),
-        Pattern::filter(new F\Regex('/article_\d+/'))->validate(
-            Pattern::get('title')->validate(new V\IsString()),
-            Pattern::get('date')->validate(new V\IsString())
-        )
+        Pattern::filter(new F\Regex('/book_\d+/'), $bookPattern),
+        Pattern::filter(new F\Regex('/article_\d+/'), $articlePattern)
     ),
     Pattern::get('data')->validate(
-        Pattern::filter(new F\KeyEqual('type', 'article'))->validate(
-            new V\Key('title'),
-            Pattern::get('title')->validate(new V\IsString())
-        ),
-        Pattern::filter(new F\KeyEqual('type', 'book'))->validate(
-            Pattern::get('name')->validate(new V\IsString())
-        )
+        new V\Custom($dataFieldValidationFunc, 'must contain only books and articles'),
+        Pattern::filter(new F\KeyEqual('type', 'book'), $bookPattern),
+        Pattern::filter(new F\KeyEqual('type', 'article'), $articlePattern)
     )
 );
 
@@ -94,8 +111,10 @@ try {
 
 Returns
 ```
-[][books][book_33][name] -> must be string
+[][library][books_count] -> must be integer
 [][books][book_33][author] -> must not be empty
-[][data][1] -> must contain key title
+[][books][book_33][author] -> must be string
+[][data] -> must contain only books and articles
+[][data][0] -> must contain some keys
 [][data][2][title] -> must be string
 ```
