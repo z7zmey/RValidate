@@ -7,34 +7,32 @@ use RValidate\Filters\Equal;
 
 class Pattern extends AbstractIterator
 {
+    protected $filter;
+    
     public function __construct(...$rules)
     {
         $this->storage = array_merge($this->storage, $rules);
     }
-    
-    protected $filter;
 
-    public static function all()
+    public static function filter(Interfaces\Filter $filter, Pattern $proto = null)
     {
-        return new self();
+        if ($proto) {
+            $instance = clone($proto);
+        } else {
+            $instance = new self();
+        }
+        return $instance->setFilter($filter);
     }
 
-    public static function filter(Interfaces\Filter $filter = null)
+    public static function get($key, Pattern $proto = null)
     {
-        $instance = new self();
-        $instance->setFilter($filter);
-
-        return $instance;
-    }
-
-    public static function get($key)
-    {
-        return self::filter(new Equal($key));
+        return self::filter(new Equal($key), $proto);
     }
     
-    public function setFilter(Interfaces\Filter $filter = null)
+    protected function setFilter(Interfaces\Filter $filter = null)
     {
         $this->filter = $filter;
+        return $this;
     }
 
     /**
