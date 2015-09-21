@@ -17,7 +17,8 @@ class Keys implements Interfaces\Validator
     public function validate($data) 
     {
         if (!is_array($data) || array_diff_key($this->keys, $data)) {
-            throw new Exceptions\ValidateException('must contain some keys');
+            $keysStr = implode(', ', array_keys($this->keys));
+            throw new Exceptions\ValidateException("must contain keys [{$keysStr}]");
         }
 
         return true;

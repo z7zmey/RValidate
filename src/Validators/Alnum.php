@@ -10,7 +10,7 @@ class Alnum implements Interfaces\Validator
     public function validate($data) 
     {
         if (!ctype_alnum($data)) {
-            throw new Exceptions\ValidateException('must be alnum');
+            throw new Exceptions\ValidateException('must be alphanumeric');
         }
         
         return true;
