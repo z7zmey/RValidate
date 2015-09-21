@@ -16,7 +16,7 @@ class Regex implements Interfaces\Validator
     
     public function validate($data) 
     {
-        if (!preg_match($this->regex, $data)) {
+        if (!is_string($data) || !preg_match($this->regex, $data)) {
             throw new Exceptions\ValidateException('must match ' . $this->regex);
         }
         

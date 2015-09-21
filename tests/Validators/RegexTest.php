@@ -24,4 +24,14 @@ class RegexTest extends \PHPUnit_Framework_TestCase
 
         $validator->validate('wrong_string');
     }
+
+    /**
+     * @expectedException \RValidate\Exceptions\ValidateException
+     */
+    public static function testValidate_notstring_exception()
+    {
+        $validator = new Regex('/success/');
+
+        $validator->validate(['wrong_string']);
+    }
 }
