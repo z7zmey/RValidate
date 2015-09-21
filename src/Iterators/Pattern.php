@@ -3,7 +3,7 @@
 namespace RValidate\Iterators;
 
 use RValidate\Interfaces;
-use RValidate\Filters\Equal;
+use RValidate\Filters\Key\Equal;
 
 class Pattern extends AbstractIterator
 {

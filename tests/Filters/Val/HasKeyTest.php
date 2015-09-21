@@ -1,14 +1,14 @@
 <?php
 
-namespace Filters;
+namespace Filters\Val;
 
-use RValidate\Filters\KeyEqual;
+use RValidate\Filters\Val\HasKey;
 
-class KeyEqualTest extends \PHPUnit_Framework_TestCase
+class HasKeyTest extends \PHPUnit_Framework_TestCase
 {
     public function testFilter_rightData()
     {
-        $filter = new KeyEqual('foo', 'bar');
+        $filter = new HasKey('foo', 'bar');
 
         $data = [
             ['foo' => 'bar'],
@@ -22,7 +22,7 @@ class KeyEqualTest extends \PHPUnit_Framework_TestCase
 
     public function testFilter_wrongData()
     {
-        $filter = new KeyEqual('foo', 'bar');
+        $filter = new HasKey('foo', 'bar');
 
         $data = [
             'foo' => 'bar',
@@ -36,7 +36,7 @@ class KeyEqualTest extends \PHPUnit_Framework_TestCase
 
     public function testFilter_wrongArray()
     {
-        $filter = new KeyEqual('foo', 'bar');
+        $filter = new HasKey('foo', 'bar');
 
         $data = '';
 

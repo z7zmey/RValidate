@@ -1,10 +1,10 @@
 <?php
 
-namespace RValidate\Filters;
+namespace RValidate\Filters\Val;
 
 use RValidate\Interfaces;
 
-class KeyEqual implements Interfaces\Filter
+class HasKey implements Interfaces\Filter
 {
     private $key;
     private $equal;

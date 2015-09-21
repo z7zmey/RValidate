@@ -1,8 +1,8 @@
 <?php
 
-namespace Filters;
+namespace Filters\Key;
 
-use RValidate\Filters\Equal;
+use RValidate\Filters\Key\Equal;
 
 class EqualTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace RValidate\Filters;
+namespace RValidate\Filters\Key;
 
 use RValidate\Interfaces;
 

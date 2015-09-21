@@ -1,8 +1,8 @@
 <?php
 
-namespace Filters;
+namespace Filters\Key;
 
-use RValidate\Filters\Regex;
+use RValidate\Filters\Key\Regex;
 
 class RegexTest extends \PHPUnit_Framework_TestCase
 {

@@ -88,13 +88,13 @@ $pattern = new Pattern(
         Pattern::get('books_count')->validate(new V\IsInteger())
     ),
     Pattern::get('books')->validate(
-        Pattern::filter(new F\Regex('/book_\d+/'), $bookPattern),
-        Pattern::filter(new F\Regex('/article_\d+/'), $articlePattern)
+        Pattern::filter(new F\Key\Regex('/book_\d+/'), $bookPattern),
+        Pattern::filter(new F\Key\Regex('/article_\d+/'), $articlePattern)
     ),
     Pattern::get('data')->validate(
         new V\Custom($dataFieldValidationFunc, 'must contain only books and articles'),
-        Pattern::filter(new F\KeyEqual('type', 'book'), $bookPattern),
-        Pattern::filter(new F\KeyEqual('type', 'article'), $articlePattern)
+        Pattern::filter(new F\Val\HasKey('type', 'book'), $bookPattern),
+        Pattern::filter(new F\Val\HasKey('type', 'article'), $articlePattern)
     )
 );
 
