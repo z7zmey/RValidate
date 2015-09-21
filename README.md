@@ -2,7 +2,17 @@
 
 PHP library that help you validate structure of complex nested PHP arrays.
 
-## Example:
+##Installation
+
+The best way to install RValidate is using Composer:
+
+```sh
+$ composer require z7zmey/rvalidate
+```
+
+## Examples:
+
+### Basic example
 
 ```php
 use RValidate\Validator;
@@ -11,97 +21,21 @@ use RValidate\Validators as V;
 use RValidate\Filters as F;
 
 $data = [
-    'library' => [
-        'name' => 'Some library',
-        'books_count' => '22567',
-    ],
-    'books' => [
-        'book_1' => [
-            'name' => 'Some book 1',
-            'author' => 'unknown author',
-        ],
-        'book_2' => [
-            'name' => 'Some book 2',
-            'author' => 'unknown author',
-        ],
-        'book_33' => [
-            'name' => '',
-            'author' => null,
-        ],
-        'article_9' => [
-            'title' => 'some article',
-            'date' => '',
-        ],
-    ],
-    'data' => [
-        [
-            'type' => 'book',
-            'name' => 'some book'
-        ],
-        [
-            'type' => 'article'
-        ],
-        [
-            'type' => 'article',
-            'title' => 47
-        ],
-        [
-            'type' => 'unvalidated'
-        ],
-        'wrong value'
-    ],
+    'login' => 'Nick',
+    'email' => 'nick@example.com',
+    'password' => '******'
 ];
-
-$bookPattern = new Pattern(
-    new V\Keys(['name', 'author']),
-    Pattern::get('name')->validate(new V\IsString()),
-    Pattern::get('author')->validate(new V\NotEmpty(), new V\IsString())
-);
-
-$articlePattern = new Pattern(
-    Pattern::get('title')->validate(new V\NotEmpty(), new V\IsString()),
-    Pattern::get('author')->validate(new V\NotEmpty(), new V\IsString())
-);
-
-$dataFieldValidationFunc = function($data) {
-    if (!is_array($data)) {
-        return false;
-    }
-    foreach($data as $val) {
-        if (
-            !is_array($val) ||
-            !array_key_exists('type', $val) ||
-            !in_array($val['type'], ['book', 'article'], true)
-        ) {
-            return false;
-        }
-    }
-    return true;
-};
 
 $pattern = new Pattern(
     new V\IsArray(),
-    new V\keys(['library', 'books']),
-    Pattern::get('library')->validate(
-        Pattern::get('name')->validate(new V\IsString()),
-        Pattern::get('address')->validate(new V\IsString()),
-        Pattern::get('books_count')->validate(new V\IsInteger())
-    ),
-    Pattern::get('books')->validate(
-        Pattern::filter(new F\Key\Regex('/book_\d+/'), $bookPattern),
-        Pattern::filter(new F\Key\Regex('/article_\d+/'), $articlePattern)
-    ),
-    Pattern::get('data')->validate(
-        new V\Custom($dataFieldValidationFunc, 'must contain only books and articles'),
-        Pattern::filter(new F\Val\HasKey('type', 'book'), $bookPattern),
-        Pattern::filter(new F\Val\HasKey('type', 'article'), $articlePattern)
-    )
+    new V\keys(['login', 'email', 'password']),
+    Pattern::get('login')->validate(new V\IsString(), new V\Min(3)),
+    Pattern::get('email')->validate(new V\Email()),
+    Pattern::get('password')->validate(new V\Regex('/[A-Za-z!#$%&*(),.]{6,}/'))
 );
 
 try {
     Validator::run($data, $pattern);
-
-    echo 'success';
 } catch (\RValidate\Exceptions\ValidateExceptions $e) {
     foreach ($e->getMessages() as $msg) {
         echo $msg['path'] . ' -> ' . $msg['message'] . "\n";
@@ -109,12 +43,46 @@ try {
 }
 ```
 
-Returns
+### Nested example:
+
+```php
+$data = [
+    'id_user' => 1011,
+    'roles' => [
+        'admin' => false,
+        'moderator' => true,
+        'tester' => false
+    ]
+];
+
+$pattern = new Pattern(
+    new V\IsArray(),
+    new V\keys(['id_user', 'roles']),
+    Pattern::get('id_user')->validate(new V\IsInteger()),
+    Pattern::get('roles')->validate(
+        new V\Keys(['admin', 'moderator', 'tester']),
+        Pattern::all()->validate(new V\IsBoolean())
+    )
+);
 ```
-[][library][books_count] -> must be integer
-[][books][book_33][author] -> must not be empty
-[][books][book_33][author] -> must be string
-[][data] -> must contain only books and articles
-[][data][0] -> must contain some keys
-[][data][2][title] -> must be string
+
+### Filter example:
+
+```php
+$data = [
+    'String1'  => 'some string',
+    'String2'  => 'some string',
+    'String3'  => '',
+    'Number1'  => 1,
+    'Number2'  => 2,
+    'Number44' => 44,
+    'alnum'    => 'alpha1'
+];
+
+$pattern = new Pattern(
+    new V\IsArray(),
+    Pattern::filter(new F\Key\Regex('/^String\d+$/'))->validate(new V\IsString()),
+    Pattern::filter(new F\Key\Regex('/^Number\d+$/'))->validate(new V\IsInteger()),
+    Pattern::filter(new F\Key\Regex('/^Alnum/i'))->validate(new V\Alnum(), new V\NotEmpty())
+);
 ```
