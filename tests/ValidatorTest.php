@@ -1,6 +1,8 @@
 <?php
 
 use RValidate\Validator;
+use RValidate\Sub;
+use RValidate\Filters\Key\Equal as Get;
 use RValidate\Iterators\Pattern;
 use RValidate\Validators\IsString;
 use RValidate\Validators\Required;
@@ -14,7 +16,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     {
         $data = 'string value';
 
-        $pattern = new Pattern(new IsString());
+        $pattern = new Pattern([new IsString()]);
 
         $result = Validator::run($data, $pattern);
 
@@ -28,7 +30,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     {
         $data = null;
 
-        $pattern = new Pattern(new Required());
+        $pattern = new Pattern([new Required()]);
 
         Validator::run($data, $pattern);
     }
@@ -41,11 +43,11 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             ]
         ];
 
-        $pattern = new Pattern(
-            Pattern::get('param_1')->validate(
-                Pattern::get('param_2')->validate(new IsString())
-            )
-        );
+        $pattern = new Pattern([
+            new Sub(new Get('param_1'), new Pattern([
+                new Sub(new Get('param_2'), new Pattern([new IsString()]))
+            ]))
+        ]);
 
         $result = Validator::run($data, $pattern);
 
@@ -63,11 +65,11 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             ]
         ];
 
-        $pattern = new Pattern(
-            Pattern::get('param_1')->validate(
-                Pattern::get('param_2')->validate(new IsInteger())
-            )
-        );
+        $pattern = new Pattern([
+            new Sub(new Get('param_1'), new Pattern([
+                new Sub(new Get('param_2'), new Pattern([new IsInteger()]))
+            ]))
+        ]);
 
         $result = Validator::run($data, $pattern);
 
@@ -81,13 +83,13 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
                 'param_2' => 'string value'
             ]
         ];
-
-        $pattern = new Pattern(
+        
+        $pattern = new Pattern([
             new Key('Param_2'),
-            Pattern::get('param_1')->validate(
-                Pattern::get('param_2')->validate(new IsInteger())
-            )
-        );
+            new Sub(new Get('param_1'), new Pattern([
+                new Sub(new Get('param_2'), new Pattern([new IsInteger()]))
+            ]))
+        ]);
 
         $expected = [
             [

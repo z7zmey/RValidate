@@ -3,7 +3,7 @@
 namespace RValidate\Iterators;
 
 
-abstract class AbstractIterator implements \RecursiveIterator
+abstract class AbstractIterator implements \Iterator
 {
     protected $position = 0;
     protected $storage = [];
@@ -28,15 +28,5 @@ abstract class AbstractIterator implements \RecursiveIterator
 
     public function key() {
         return $this->position;
-    }
-
-    // RecursiveIterator methods
-
-    public function hasChildren() {
-        return $this->storage[$this->position] instanceof $this;
-    }
-
-    public function getChildren() {
-        return $this->storage[$this->position];
     }
 }

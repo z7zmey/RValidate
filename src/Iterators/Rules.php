@@ -5,7 +5,7 @@ namespace RValidate\Iterators;
 
 use RValidate\Sub;
 
-class Rules extends AbstractIterator
+class Rules extends AbstractIterator implements \RecursiveIterator
 {
     protected $data;
     protected $key;
@@ -34,5 +34,15 @@ class Rules extends AbstractIterator
     public function getData()
     {
         return $this->data;
+    }
+
+    // RecursiveIterator methods
+
+    public function hasChildren() {
+        return $this->storage[$this->position] instanceof Rules;
+    }
+
+    public function getChildren() {
+        return $this->storage[$this->position];
     }
 }
