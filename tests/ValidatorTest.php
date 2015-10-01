@@ -3,7 +3,7 @@
 use RValidate\Validator;
 use RValidate\Sub;
 use RValidate\Filters\Key\Equal as Get;
-use RValidate\Iterators\Pattern;
+use RValidate\Pattern;
 use RValidate\Validators\IsString;
 use RValidate\Validators\Required;
 use RValidate\Validators\IsInteger;

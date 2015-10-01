@@ -3,6 +3,7 @@
 namespace RValidate\Iterators;
 
 
+use RValidate\Pattern;
 use RValidate\Sub;
 
 class Rules extends AbstractIterator implements \RecursiveIterator

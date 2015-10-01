@@ -3,7 +3,7 @@
 namespace RValidate;
 
 use RValidate\Interfaces\Filter;
-use RValidate\Iterators\Pattern;
+use RValidate\Pattern;
 
 class Sub
 {

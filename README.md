@@ -17,20 +17,20 @@ $ composer require z7zmey/rvalidate
 ```php
 use RValidate\Validator;
 use RValidate\Sub;
-use RValidate\Iterators\Pattern;
+use RValidate\Pattern;
 use RValidate\Validators as V;
 use RValidate\Filters as F;
 
 $data = [
     'login' => 'Nick',
     'email' => 'nick@example.com',
-    'password' => '******'
+    'password' => '*****'
 ];
 
 $pattern = new Pattern([
     new V\IsArray(),
     new V\keys(['login', 'email', 'password']),
-    new Sub(new F\Key\Equal('login'), new Pattern([new V\IsString(), new V\Min(3)])),
+    new Sub(new F\Key\Equal('login'), new Pattern([new V\IsString(), new V\Min(5)])),
     new Sub(new F\Key\Equal('email'), new Pattern([new V\Email()])),
     new Sub(new F\Key\Equal('password'), new Pattern([new V\IsString(), new V\Regex('/[A-Za-z!#$%&*(),.]{6,}/')])),
 ]);
@@ -42,6 +42,13 @@ try {
         echo $msg['path'] . ' -> ' . $msg['message'] . "\n";
     }
 }
+```
+
+#### output
+```
+[] -> must contain keys [login, email, password, name]
+[][login] -> must be minimal 5
+[][password] -> must match /[A-Za-z!#$%&*(),.]{6,}/
 ```
 
 ### Nested example:

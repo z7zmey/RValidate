@@ -1,6 +1,8 @@
 <?php
 
-namespace RValidate\Iterators;
+namespace RValidate;
+
+use RValidate\Iterators\AbstractIterator;
 
 class Pattern extends AbstractIterator
 {
