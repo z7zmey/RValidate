@@ -3,6 +3,8 @@
 namespace RValidate\Iterators;
 
 
+use RValidate\Sub;
+
 class Rules extends AbstractIterator
 {
     protected $data;
@@ -13,10 +15,10 @@ class Rules extends AbstractIterator
         $this->data = $data;
         $this->key = $key;
         foreach ($patternIterator as $patternVal) {
-            if ($patternVal instanceof Pattern) {
+            if ($patternVal instanceof Sub) {
                 $filtered = $patternVal->getFilter()->filter($this->data);
                 foreach ($filtered as $key => $val) {
-                    $this->storage[] = new Rules($key, $val, $patternVal);
+                    $this->storage[] = new Rules($key, $val, $patternVal->getPattern());
                 }
             } else {
                 $this->storage[] = $patternVal;

@@ -2,7 +2,6 @@
 
 namespace RValidate\Interfaces;
 
-
 interface Filter
 {
     /**

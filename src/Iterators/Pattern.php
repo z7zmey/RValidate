@@ -2,57 +2,29 @@
 
 namespace RValidate\Iterators;
 
-use RValidate\Interfaces;
-use RValidate\Filters\All;
-use RValidate\Filters\Key\Equal;
+use RValidate\Exceptions\Exception;
+use RValidate\Sub;
 
 class Pattern extends AbstractIterator
 {
-    protected $filter;
-    
-    public function __construct(...$rules)
+    public function __construct(array $rules)
     {
         $this->storage = array_merge($this->storage, $rules);
     }
+    
+    // RecursiveIterator methods
 
-    public static function filter(Interfaces\Filter $filter, Pattern $proto = null)
-    {
-        if ($proto) {
-            $instance = clone($proto);
-        } else {
-            $instance = new self();
+    public function hasChildren() {
+        return $this->storage[$this->position] instanceof Sub;
+    }
+
+    public function getChildren() {
+        $sub = $this->storage[$this->position];
+        
+        if (!$sub instanceof Sub) {
+            throw new Exception('Current value must be instance of Filter');
         }
-        return $instance->setFilter($filter);
-    }
-
-    public static function get($key, Pattern $proto = null)
-    {
-        return self::filter(new Equal($key), $proto);
-    }
-
-    public static function all(Pattern $proto = null)
-    {
-        return self::filter(new All(), $proto);
-    }
-    
-    protected function setFilter(Interfaces\Filter $filter = null)
-    {
-        $this->filter = $filter;
-        return $this;
-    }
-
-    /**
-     * @return \RValidate\Interfaces\Filter
-     */
-    public function getFilter()
-    {
-        return $this->filter;
-    }
-
-    //TODO: подумать стоит ли делать потдержку php версии ниже 5.6 а может сразу писать под версию 7
-    public function validate(...$rules)
-    {
-        $this->storage = array_merge($this->storage, $rules);
-        return $this;
+        
+        return $sub->getPattern();
     }
 }
