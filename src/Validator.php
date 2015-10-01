@@ -14,7 +14,7 @@ class Validator
 
         foreach ($iterator as $rule) {
             try {
-                $rule->validate($iterator->getInnerIterator()->getData());
+                $rule->validate($iterator->getData());
             } catch (Exceptions\ValidateException $e) {
                 $e->setPath($iterator->getPath());
                 $exceptions->add($e);

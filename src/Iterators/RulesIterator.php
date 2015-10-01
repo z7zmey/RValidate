@@ -2,11 +2,11 @@
 
 namespace RValidate\Iterators;
 
-
 /**
  * Class RulesIterator
  * @method Rules getInnerIterator()
  * @method Rules getSubIterator($level)
+ * @method mixed getData()
  */
 class RulesIterator extends \RecursiveIteratorIterator
 {
