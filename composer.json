@@ -6,7 +6,7 @@
     "schema", "pattern", "recursive", "nested", "complex",  "z7zmey"
   ],
   "type": "library",
-  "license": "MIT",
+  "license": "BSD",
   "homepage": "https://github.com/z7zmey/RValidate",
   "authors": [
     {
