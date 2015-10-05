@@ -1,6 +1,6 @@
 #RValidate
 
-PHP library that help you validate structure of complex nested PHP arrays.
+Library for the validation nested arrays with indicating the location and type of each pattern mismatch.
 
 ##Installation
 
@@ -29,10 +29,12 @@ $data = [
 
 $pattern = new Pattern([
     new V\IsArray(),
-    new V\keys(['login', 'email', 'password']),
+    new V\keys(['login', 'email', 'password', 'name']),
     new Sub(new F\Key\Equal('login'), new Pattern([new V\IsString(), new V\Min(5)])),
     new Sub(new F\Key\Equal('email'), new Pattern([new V\Email()])),
-    new Sub(new F\Key\Equal('password'), new Pattern([new V\IsString(), new V\Regex('/[A-Za-z!#$%&*(),.]{6,}/')])),
+    new Sub(new F\Key\Equal('password'), new Pattern([
+        new V\Regex('/[A-Za-z[:punct:] ]{6,}/')
+    ])),
 ]);
 
 try {
@@ -48,7 +50,7 @@ try {
 ```
 [] -> must contain keys [login, email, password, name]
 [][login] -> must be minimal 5
-[][password] -> must match /[A-Za-z!#$%&*(),.]{6,}/
+[][password] -> must match /[A-Za-z[:punct:] ]{6,}/
 ```
 
 ### Nested example:
@@ -67,9 +69,11 @@ $pattern = new Pattern([
     new V\IsArray(),
     new V\keys(['id_user', 'roles']),
     new Sub(new F\Key\Equal('id_user'), new Pattern([new V\IsInteger()])),
-    new Sub(new F\Key\Equal('roles'), new Pattern([
+    new Sub(new F\Key\Equal('roles'),   new Pattern([
         new V\Keys(['admin', 'moderator', 'tester']),
-        new Sub(new F\All(), new Pattern([new V\IsBoolean()]))
+        new Sub(new F\Key\Equal('admin'),     new Pattern([new V\IsBoolean()])),
+        new Sub(new F\Key\Equal('moderator'), new Pattern([new V\IsBoolean()])),
+        new Sub(new F\Key\Equal('tester'),    new Pattern([new V\IsBoolean()])),
     ])),
 ]);
 ```
@@ -91,6 +95,8 @@ $pattern = new Pattern([
     new V\IsArray(),
     new Sub(new F\Key\Regex('/^String\d+$/'), new Pattern([new V\IsString()])),
     new Sub(new F\Key\Regex('/^Number\d+$/'), new Pattern([new V\IsInteger()])),
-    new Sub(new F\Key\Regex('/^Alnum\d+$/'), new Pattern([new V\Alnum(), new V\NotEmpty()])),
+    new Sub(new F\Key\Regex('/^Alnum\d+$/'), new Pattern([
+        new V\Alnum(), new V\NotEmpty()
+    ])),
 ]);
 ```
