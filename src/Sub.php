@@ -11,7 +11,7 @@ class Sub
 
     /**
      * @param Filter $filter
-     * @param \RValidate\Pattern $pattern
+     * @param Pattern $pattern
      */
     public function __construct(Filter $filter, Pattern $pattern)
     {
