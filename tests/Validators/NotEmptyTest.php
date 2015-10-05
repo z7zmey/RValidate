@@ -22,6 +22,6 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new NotEmpty();
 
-        $validator->validate('0');
+        $validator->validate('      ');
     }
 }
