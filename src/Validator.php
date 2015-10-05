@@ -12,7 +12,7 @@ class Validator
         $rules = new Iterators\Rules(null, $data, $pattern);
         $iterator = new Iterators\RulesIterator($rules);
 
-        foreach ($iterator as $rule) {
+        foreach ($iterator as $k => $rule) {
             try {
                 $rule->validate($iterator->getData());
             } catch (Exceptions\ValidateException $e) {
