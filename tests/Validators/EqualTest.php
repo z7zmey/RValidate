@@ -14,14 +14,15 @@ class EqualTest extends \PHPUnit_Framework_TestCase
 
         static::assertTrue($result);
     }
-    
+
+    /**
+     * @expectedException \RValidate\Exceptions\ValidateException
+     */   
     public function testValidate_notStrict()
     {
         $validator = new Equal(2);
 
         $result = $validator->validate('2');
-
-        static::assertTrue($result);
     }
 
     /**
