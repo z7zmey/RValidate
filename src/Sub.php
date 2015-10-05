@@ -3,7 +3,6 @@
 namespace RValidate;
 
 use RValidate\Interfaces\Filter;
-use RValidate\Pattern;
 
 class Sub
 {
@@ -12,7 +11,7 @@ class Sub
 
     /**
      * @param Filter $filter
-     * @param Pattern $pattern
+     * @param \RValidate\Pattern $pattern
      */
     public function __construct(Filter $filter, Pattern $pattern)
     {
