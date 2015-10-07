@@ -8,11 +8,12 @@ use RValidate\Validators\IsString;
 use RValidate\Validators\Required;
 use RValidate\Validators\IsInteger;
 use RValidate\Validators\Key;
+use RValidate\Validators\Keys;
 
 
 class ValidatorTest extends PHPUnit_Framework_TestCase
 {
-    public function testValidate_success()
+    public function test_scalar_success()
     {
         $data = 'string value';
 
@@ -26,7 +27,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException \RValidate\Exceptions\ValidateExceptions
      */
-    public function testValidate_error()
+    public function test_scalar_exception()
     {
         $data = null;
 
@@ -35,7 +36,44 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         Validator::run($data, $pattern);
     }
 
-    public function testValidate_nested_success()
+    public function test_array_success()
+    {
+        $data = [
+            'key_1' => 1,
+            'key_2' => 'string value',
+        ];
+
+        $pattern = new Pattern([
+            new Keys(['key_1', 'key_2']),
+            new Sub(new Get('key_1'), new Pattern([new IsInteger()])),
+            new Sub(new Get('key_2'), new Pattern([new IsString()])),
+        ]);
+
+        $result = Validator::run($data, $pattern);
+
+        static::assertTrue($result);
+    }
+
+    /**
+     * @expectedException \RValidate\Exceptions\ValidateExceptions
+     */
+    public function test_array_exception()
+    {
+        $data = [
+            'key_1' => 1,
+            'key_2' => 'string value',
+        ];
+
+        $pattern = new Pattern([
+            new Keys(['key_1', 'key_2', 'key_3']),
+            new Sub(new Get('key_1'), new Pattern([new IsInteger()])),
+            new Sub(new Get('key_2'), new Pattern([new IsInteger()])),
+        ]);
+
+        Validator::run($data, $pattern);
+    }
+
+    public function test_nestedArray_success()
     {
         $data = [
             'param_1' => [
@@ -57,7 +95,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException \RValidate\Exceptions\ValidateExceptions
      */
-    public function testValidate_nested_error()
+    public function test_nestedArray_exception()
     {
         $data = [
             'param_1' => [
@@ -76,7 +114,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         static::assertTrue($result);
     }
 
-    public function testValidate_errorMessages()
+    public function test_errorMessages()
     {
         $data = [
             'param_1' => [
