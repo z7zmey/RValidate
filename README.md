@@ -38,7 +38,7 @@ $pattern = new Pattern([
 ]);
 
 try {
-    Validator::run($data, $pattern);
+    $result = Validator::run($data, $pattern);
 } catch (\RValidate\Exceptions\ValidateExceptions $e) {
     foreach ($e->getMessages() as $msg) {
         echo $msg['path'] . ' -> ' . $msg['message'] . "\n";
