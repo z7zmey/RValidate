@@ -21,7 +21,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
 
         $result = Validator::run($data, $pattern);
 
-        static::assertTrue($result);
+        static::assertEquals($data, $result);
     }
 
     /**
@@ -51,7 +51,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
 
         $result = Validator::run($data, $pattern);
 
-        static::assertTrue($result);
+        static::assertEquals($data, $result);
     }
 
     /**
@@ -89,7 +89,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
 
         $result = Validator::run($data, $pattern);
 
-        static::assertTrue($result);
+        static::assertEquals($data, $result);
     }
 
     /**
@@ -147,5 +147,33 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
 
             static::assertEquals($expected, $messagesArray);
         }
+    }
+    
+    public function test_returnOnlyValidated_success()
+    {
+
+        $data = [
+            'param_1' => [
+                'param_2' => 'string value',
+                'filtered_val' => 25,
+            ],
+            'some' => 'filtered value',
+        ];
+        
+        $expected = [
+            'param_1' => [
+                'param_2' => 'string value'
+            ]
+        ];
+
+        $pattern = new Pattern([
+            new Sub(new Get('param_1'), new Pattern([
+                new Sub(new Get('param_2'), new Pattern([new IsString()]))
+            ]))
+        ]);
+
+        $result = Validator::run($data, $pattern);
+
+        static::assertEquals($expected, $result);
     }
 }

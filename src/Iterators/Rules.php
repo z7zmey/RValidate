@@ -2,7 +2,6 @@
 
 namespace RValidate\Iterators;
 
-
 use RValidate\Pattern;
 use RValidate\Sub;
 
@@ -10,20 +9,24 @@ class Rules extends AbstractIterator implements \RecursiveIterator
 {
     protected $data;
     protected $key;
+    
+    private $validationMap = [];
 
-    public function __construct($key, $data, Pattern $patternIterator)
+    public function __construct($key, $data, Pattern $pattern)
     {
-        $this->data = $data;
         $this->key = $key;
-        foreach ($patternIterator as $patternVal) {
-            if ($patternVal instanceof Sub) {
-                $filtered = $patternVal->getFilter()->filter($this->data);
-                foreach ($filtered as $key => $val) {
-                    $this->storage[] = new Rules($key, $val, $patternVal->getPattern());
-                }
+        $this->data = $data;
+        
+        foreach ($pattern as $val) {
+            if ($val instanceof Sub) {
+                $this->setSub($val);
             } else {
-                $this->storage[] = $patternVal;
+                $this->storage[] = $val;
             }
+        }
+        
+        if (is_array($this->data)) {
+            $this->data = array_intersect_key($this->data, $this->validationMap);
         }
     }
 
@@ -35,6 +38,18 @@ class Rules extends AbstractIterator implements \RecursiveIterator
     public function getData()
     {
         return $this->data;
+    }
+
+    private function setSub(Sub $sub)
+    {
+        $filtered = $sub->getFilter()->filter($this->data);
+        foreach ($filtered as $key => $val) {
+            $rule = new Rules($key, $val, $sub->getPattern());
+            $this->data[$key] = $rule->getData();
+            $this->validationMap[$key] = true;
+
+            $this->storage[] = $rule;
+        }
     }
 
     // RecursiveIterator methods

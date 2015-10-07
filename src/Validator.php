@@ -25,6 +25,6 @@ class Validator
             throw $exceptions;
         }
         
-        return true;
+        return $rules->getData();
     }
 }
