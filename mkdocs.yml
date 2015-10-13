@@ -1,0 +1,8 @@
+site_name: RValidate Documentation
+site_author: Vadim Slizov
+repo_url: https://github.com/z7zmey/RValidate
+theme: readthedocs
+pages:
+- ['index.md', 'Home']
+- ['Validators/Alnum.md', 'Validators']
+- ['Validators/Alpha.md', 'Validators']
