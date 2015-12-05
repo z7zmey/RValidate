@@ -7,7 +7,7 @@ use RValidate\Exceptions;
 
 class IsScalar implements Interfaces\Validator
 {
-    public function validate($data) 
+    public function validate($data) : \bool
     {
         if (!is_scalar($data)) {
             throw new Exceptions\ValidateException('must be scalar');

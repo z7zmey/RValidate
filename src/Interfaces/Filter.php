@@ -8,5 +8,5 @@ interface Filter
      * @param mixed $data
      * @return array
      */
-    public function filter($data);
+    public function filter($data) : array;
 }

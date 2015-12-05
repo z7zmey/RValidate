@@ -14,7 +14,7 @@ class Gte implements Interfaces\Validator
         $this->count = (int)$count;
     }
     
-    public function validate($data) 
+    public function validate($data) : \bool
     {
         if (!is_numeric($data) || $data < $this->count) {
             throw new Exceptions\ValidateException("must be greater or equal {$this->count}");

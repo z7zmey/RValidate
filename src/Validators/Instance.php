@@ -14,7 +14,7 @@ class Instance implements Interfaces\Validator
         $this->className = $class;
     }
     
-    public function validate($data) 
+    public function validate($data) : \bool
     {
         if (!is_object($data) || !($data instanceof $this->className)) {
             throw new Exceptions\ValidateException("must be instance of '{$this->className}'");

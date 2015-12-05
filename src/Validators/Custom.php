@@ -16,7 +16,7 @@ class Custom implements Interfaces\Validator
         $this->errorMessage = $message;
     }
     
-    public function validate($data) 
+    public function validate($data) : \bool
     {
         if (!call_user_func($this->func, $data)) {
             throw new Exceptions\ValidateException($this->errorMessage);

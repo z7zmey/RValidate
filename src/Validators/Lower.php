@@ -7,7 +7,7 @@ use RValidate\Exceptions;
 
 class Lower implements Interfaces\Validator
 {
-    public function validate($data) 
+    public function validate($data) : \bool
     {
         if (!ctype_lower($data)) {
             throw new Exceptions\ValidateException('must be lower case');

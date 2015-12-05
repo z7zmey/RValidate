@@ -7,7 +7,7 @@ use RValidate\Exceptions;
 
 class NotEmpty implements Interfaces\Validator
 {
-    public function validate($data) 
+    public function validate($data) : \bool
     {
         if (is_string($data)) {
             $data = trim($data);

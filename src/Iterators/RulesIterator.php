@@ -15,7 +15,7 @@ class RulesIterator extends \RecursiveIteratorIterator
         parent::__construct($iterator, $mode, $flags);
     }
     
-    public function getPath()
+    public function getPath() : array
     {
         $path = [$this->getInnerIterator()->getKey()];
 

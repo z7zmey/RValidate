@@ -14,7 +14,7 @@ class Equal implements Interfaces\Validator
         $this->equal = $equal;
     }
     
-    public function validate($data) 
+    public function validate($data) : \bool
     {
         if ($data !== $this->equal) {
             throw new Exceptions\ValidateException('must equal');

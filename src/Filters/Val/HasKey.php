@@ -15,7 +15,7 @@ class HasKey implements Interfaces\Filter
         $this->equal = $equal;
     }
     
-    public function filter($data)
+    public function filter($data) : array
     {
         if (!is_array($data)) {
             return [];

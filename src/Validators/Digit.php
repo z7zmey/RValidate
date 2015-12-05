@@ -7,7 +7,7 @@ use RValidate\Exceptions;
 
 class Digit implements Interfaces\Validator
 {
-    public function validate($data) 
+    public function validate($data) : \bool
     {
         if (!ctype_digit($data)) {
             throw new Exceptions\ValidateException('must be digit');

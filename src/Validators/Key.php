@@ -14,7 +14,7 @@ class Key implements Interfaces\Validator
         $this->key = $key;
     }
     
-    public function validate($data) 
+    public function validate($data) : \bool
     {
         if (!is_array($data) || !array_key_exists($this->key, $data)) {
             throw new Exceptions\ValidateException('must contain key ' . $this->key);

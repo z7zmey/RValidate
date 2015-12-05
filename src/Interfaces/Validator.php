@@ -2,13 +2,12 @@
 
 namespace RValidate\Interfaces;
 
-
 interface Validator
 {
     /**
      * @param mixed $data
-     * @return bool
+     * @return boolean
      * @thrown RValidate\Exceptions\ValidateException
      */
-    public function validate($data);
+    public function validate($data) : \bool;
 }

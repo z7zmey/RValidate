@@ -7,7 +7,7 @@ use RValidate\Exceptions;
 
 class IsNumber implements Interfaces\Validator
 {
-    public function validate($data) 
+    public function validate($data) : \bool
     {
         if (!is_numeric($data)) {
             throw new Exceptions\ValidateException('must be numeric');

@@ -54,7 +54,7 @@ class Rules extends AbstractIterator implements \RecursiveIterator
 
     // RecursiveIterator methods
 
-    public function hasChildren() {
+    public function hasChildren() : \bool {
         return $this->storage[$this->position] instanceof Rules;
     }
 

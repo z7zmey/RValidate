@@ -14,7 +14,7 @@ class Count implements Interfaces\Validator
         $this->count = (int)$count;
     }
     
-    public function validate($data) 
+    public function validate($data) : \bool
     {
         if (!is_array($data) || count($data) !== $this->count) {
             throw new Exceptions\ValidateException("must contain {$this->count} values");

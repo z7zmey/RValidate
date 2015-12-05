@@ -14,7 +14,7 @@ class Ends implements Interfaces\Validator
         $this->str = $str;
     }
     
-    public function validate($data) 
+    public function validate($data) : \bool
     {
         if ($this->str !== mb_substr($data, -mb_strlen($this->str, 'utf-8'), null, 'utf-8')) {
             throw new Exceptions\ValidateException("must ends '{$this->str}'");

@@ -15,7 +15,7 @@ class Custom implements Interfaces\Filter
         $this->flag = $flag;
     }
     
-    public function filter($data)
+    public function filter($data) : array
     {
         if (!is_array($data)) {
             return [];

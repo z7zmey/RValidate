@@ -7,7 +7,7 @@ use RValidate\Exceptions;
 
 class Space implements Interfaces\Validator
 {
-    public function validate($data) 
+    public function validate($data) : \bool
     {
         if (!ctype_space($data)) {
             throw new Exceptions\ValidateException('must be space');

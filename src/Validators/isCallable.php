@@ -7,7 +7,7 @@ use RValidate\Exceptions;
 
 class IsCallable implements Interfaces\Validator
 {
-    public function validate($data) 
+    public function validate($data) : \bool
     {
         if (!is_callable($data)) {
             throw new Exceptions\ValidateException('must be callable');

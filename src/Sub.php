@@ -22,7 +22,7 @@ class Sub
     /**
      * @return Filter
      */
-    public function getFilter()
+    public function getFilter() : Filter
     {
         return $this->filter;
     }
@@ -30,7 +30,7 @@ class Sub
     /**
      * @return Pattern
      */
-    public function getPattern()
+    public function getPattern() : Pattern
     {
         return $this->pattern;
     }

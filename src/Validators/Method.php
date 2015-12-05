@@ -14,7 +14,7 @@ class Method implements Interfaces\Validator
         $this->method = $method;
     }
     
-    public function validate($data) 
+    public function validate($data) : \bool
     {
         if (!is_object($data) || !method_exists($data, $this->method)) {
             throw new Exceptions\ValidateException("must have method '{$this->method}'");

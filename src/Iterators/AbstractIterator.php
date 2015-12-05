@@ -18,7 +18,7 @@ abstract class AbstractIterator implements \Iterator
         $this->position++;
     }
 
-    public function valid() {
+    public function valid() : \bool {
         return array_key_exists($this->position, $this->storage);
     }
 
@@ -26,7 +26,7 @@ abstract class AbstractIterator implements \Iterator
         return $this->storage[$this->position];
     }
 
-    public function key() {
+    public function key() : \int {
         return $this->position;
     }
 }

@@ -7,7 +7,7 @@ use RValidate\Exceptions;
 
 class IsString implements Interfaces\Validator
 {
-    public function validate($data) 
+    public function validate($data) : \bool
     {
         if (!is_string($data)) {
             throw new Exceptions\ValidateException('must be string');
