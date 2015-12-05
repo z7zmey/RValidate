@@ -27,21 +27,19 @@ $data = [
     'password' => '*****'
 ];
 
-$pattern = new Pattern([
+$pattern = [
     new V\IsArray(),
     new V\keys(['login', 'email', 'password', 'name']),
-    new Sub(new F\Key\Equal('login'), new Pattern([new V\IsString(), new V\Min(5)])),
-    new Sub(new F\Key\Equal('email'), new Pattern([new V\Email()])),
-    new Sub(new F\Key\Equal('password'), new Pattern([
-        new V\Regex('/[A-Za-z[:punct:] ]{6,}/')
-    ])),
-]);
+    new Sub('login', [new V\IsString(), new V\Min(5)]),
+    new Sub('email', new V\Email()),
+    new Sub('password', new V\Regex('/[A-Za-z[:punct:] ]{6,}/')),
+];
 
 try {
     $result = Validator::run($data, $pattern);
 } catch (\RValidate\Exceptions\ValidateExceptions $e) {
-    foreach ($e->getMessages() as $msg) {
-        echo $msg['path'] . ' -> ' . $msg['message'] . "\n";
+    foreach ($e->getMessages() as $err) {
+        echo $err['path'] . ' -> ' . $err['message'] . "\n";
     }
 }
 ```
@@ -65,17 +63,17 @@ $data = [
     ]
 ];
 
-$pattern = new Pattern([
+$pattern = [
     new V\IsArray(),
     new V\keys(['id_user', 'roles']),
-    new Sub(new F\Key\Equal('id_user'), new Pattern([new V\IsInteger()])),
-    new Sub(new F\Key\Equal('roles'),   new Pattern([
+    new Sub(new F\Key\Equal('id_user'), [new V\IsInteger()]),
+    new Sub(new F\Key\Equal('roles'),   [
         new V\Keys(['admin', 'moderator', 'tester']),
-        new Sub(new F\Key\Equal('admin'),     new Pattern([new V\IsBoolean()])),
-        new Sub(new F\Key\Equal('moderator'), new Pattern([new V\IsBoolean()])),
-        new Sub(new F\Key\Equal('tester'),    new Pattern([new V\IsBoolean()])),
-    ])),
-]);
+        new Sub(new F\Key\Equal('admin'),     [new V\IsBoolean()]),
+        new Sub(new F\Key\Equal('moderator'), [new V\IsBoolean()]),
+        new Sub(new F\Key\Equal('tester'),    [new V\IsBoolean()]),
+    ]),
+];
 ```
 
 ### Filter example:
@@ -91,12 +89,10 @@ $data = [
     'Alnum1'   => 'alpha1'
 ];
 
-$pattern = new Pattern([
+$pattern = [
     new V\IsArray(),
-    new Sub(new F\Key\Regex('/^String\d+$/'), new Pattern([new V\IsString()])),
-    new Sub(new F\Key\Regex('/^Number\d+$/'), new Pattern([new V\IsInteger()])),
-    new Sub(new F\Key\Regex('/^Alnum\d+$/'), new Pattern([
-        new V\Alnum(), new V\NotEmpty()
-    ])),
-]);
+    new Sub(new F\Key\Regex('/^String\d+$/'), [new V\IsString()]),
+    new Sub(new F\Key\Regex('/^Number\d+$/'), [new V\IsInteger()]),
+    new Sub(new F\Key\Regex('/^Alnum\d+$/'), [new V\Alnum(), new V\NotEmpty()]),
+];
 ```
