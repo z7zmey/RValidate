@@ -2,7 +2,6 @@
 
 namespace RValidate\Iterators;
 
-use RValidate\Pattern;
 use RValidate\Sub;
 
 class Rules extends AbstractIterator implements \RecursiveIterator
@@ -12,7 +11,7 @@ class Rules extends AbstractIterator implements \RecursiveIterator
     
     private $validationMap = [];
 
-    public function __construct($key, $data, Pattern $pattern)
+    public function __construct($key, $data, array $pattern)
     {
         $this->key = $key;
         $this->data = $data;

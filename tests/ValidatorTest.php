@@ -3,7 +3,6 @@
 use RValidate\Validator;
 use RValidate\Sub;
 use RValidate\Filters\Key\Equal as Get;
-use RValidate\Pattern;
 use RValidate\Validators\IsString;
 use RValidate\Validators\Required;
 use RValidate\Validators\IsInteger;
@@ -17,7 +16,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     {
         $data = 'string value';
 
-        $pattern = new Pattern([new IsString()]);
+        $pattern = [new IsString()];
 
         $result = Validator::run($data, $pattern);
 
@@ -31,7 +30,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     {
         $data = null;
 
-        $pattern = new Pattern([new Required()]);
+        $pattern = [new Required()];
 
         Validator::run($data, $pattern);
     }
@@ -43,11 +42,11 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             'key_2' => 'string value',
         ];
 
-        $pattern = new Pattern([
+        $pattern = [
             new Keys(['key_1', 'key_2']),
-            new Sub(new Get('key_1'), new Pattern([new IsInteger()])),
-            new Sub(new Get('key_2'), new Pattern([new IsString()])),
-        ]);
+            new Sub(new Get('key_1'), [new IsInteger()]),
+            new Sub(new Get('key_2'), [new IsString()]),
+        ];
 
         $result = Validator::run($data, $pattern);
 
@@ -64,11 +63,11 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             'key_2' => 'string value',
         ];
 
-        $pattern = new Pattern([
+        $pattern = [
             new Keys(['key_1', 'key_2', 'key_3']),
-            new Sub(new Get('key_1'), new Pattern([new IsInteger()])),
-            new Sub(new Get('key_2'), new Pattern([new IsInteger()])),
-        ]);
+            new Sub(new Get('key_1'), [new IsInteger()]),
+            new Sub(new Get('key_2'), [new IsInteger()]),
+        ];
 
         Validator::run($data, $pattern);
     }
@@ -81,11 +80,11 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             ]
         ];
 
-        $pattern = new Pattern([
-            new Sub(new Get('param_1'), new Pattern([
-                new Sub(new Get('param_2'), new Pattern([new IsString()]))
-            ]))
-        ]);
+        $pattern = [
+            new Sub(new Get('param_1'), [
+                new Sub(new Get('param_2'), [new IsString()])
+            ])
+        ];
 
         $result = Validator::run($data, $pattern);
 
@@ -103,11 +102,11 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             ]
         ];
 
-        $pattern = new Pattern([
-            new Sub(new Get('param_1'), new Pattern([
-                new Sub(new Get('param_2'), new Pattern([new IsInteger()]))
-            ]))
-        ]);
+        $pattern = [
+            new Sub(new Get('param_1'), [
+                new Sub(new Get('param_2'), [new IsInteger()])
+            ])
+        ];
 
         $result = Validator::run($data, $pattern);
 
@@ -122,12 +121,12 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             ]
         ];
         
-        $pattern = new Pattern([
+        $pattern = [
             new Key('Param_2'),
-            new Sub(new Get('param_1'), new Pattern([
-                new Sub(new Get('param_2'), new Pattern([new IsInteger()]))
-            ]))
-        ]);
+            new Sub(new Get('param_1'), [
+                new Sub(new Get('param_2'), [new IsInteger()])
+            ])
+        ];
 
         $expected = [
             [
@@ -166,11 +165,11 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             ]
         ];
 
-        $pattern = new Pattern([
-            new Sub(new Get('param_1'), new Pattern([
-                new Sub(new Get('param_2'), new Pattern([new IsString()]))
-            ]))
-        ]);
+        $pattern = [
+            new Sub(new Get('param_1'), [
+                new Sub(new Get('param_2'), [new IsString()])
+            ])
+        ];
 
         $result = Validator::run($data, $pattern);
 

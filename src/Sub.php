@@ -11,9 +11,9 @@ class Sub
 
     /**
      * @param Filter $filter
-     * @param Pattern $pattern
+     * @param array $pattern
      */
-    public function __construct(Filter $filter, Pattern $pattern)
+    public function __construct(Filter $filter, array $pattern)
     {
         $this->filter  = $filter;
         $this->pattern = $pattern;
@@ -28,9 +28,9 @@ class Sub
     }
 
     /**
-     * @return Pattern
+     * @return array
      */
-    public function getPattern() : Pattern
+    public function getPattern() : array
     {
         return $this->pattern;
     }
