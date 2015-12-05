@@ -7,6 +7,11 @@ class Validator
 {
     public static function run($data, $pattern)
     {
+        /** @noinspection ArrayCastingEquivalentInspection object must wrap too */
+        if (!is_array($pattern)) {
+            $pattern = [$pattern];
+        }
+        
         $exceptions = new Exceptions\ValidateExceptions();
 
         $rules = new Iterators\Rules(null, $data, $pattern);

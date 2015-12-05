@@ -10,13 +10,24 @@ class Sub
     protected $pattern;
 
     /**
-     * @param Filter $filter
-     * @param array $pattern
+     * @param Filter|int|float|string $filter
+     * @param mixed $pattern
+     * @throws Exceptions\Exception
      */
-    public function __construct(Filter $filter, array $pattern)
+    public function __construct($filter, $pattern)
     {
-        $this->filter  = $filter;
+        if ($filter instanceof Filter) {
+            $this->filter  = $filter;
+        } else if (is_scalar($filter)) {
+            $this->filter = new Filters\Key\Equal($filter);
+        } else {
+            throw new Exceptions\Exception('Wrong Filter');
+        }
+
         $this->pattern = $pattern;
+        if (!is_array($pattern)) {
+            $this->pattern = [$pattern];
+        }
     }
 
     /**

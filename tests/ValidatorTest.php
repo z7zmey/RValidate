@@ -110,7 +110,24 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
 
         $result = Validator::run($data, $pattern);
 
-        static::assertTrue($result);
+        static::assertEquals($data, $result);
+    }
+
+    public function test_short_success()
+    {
+        $data = ['param_1' => 'string value'];
+        $pattern = new Sub('param_1', new IsString());
+
+        $result = Validator::run($data, $pattern);
+        static::assertEquals($data, $result);
+    }
+
+    /**
+     * @expectedException \RValidate\Exceptions\ValidateExceptions
+     */
+    public function test_short_exception()
+    {
+        Validator::run('string', new IsInteger());
     }
 
     public function test_errorMessages()
