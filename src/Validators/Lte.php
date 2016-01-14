@@ -14,7 +14,7 @@ class Lte implements Interfaces\Validator
         $this->count = (int)$count;
     }
     
-    public function validate($data) : \bool
+    public function validate($data) : bool
     {
         if (!is_numeric($data) || $data > $this->count) {
             throw new Exceptions\ValidateException("must be lower or equal {$this->count}");

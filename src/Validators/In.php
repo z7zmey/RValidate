@@ -25,7 +25,7 @@ class In implements Interfaces\Validator
         $this->message = 'mast be in [' . implode(', ', $haystackStr) . ']';
     }
     
-    public function validate($data) : \bool
+    public function validate($data) : bool
     {
         if (!in_array($data, $this->haystack, $this->strict)) {
             throw new Exceptions\ValidateException($this->message);

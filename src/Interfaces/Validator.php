@@ -9,5 +9,5 @@ interface Validator
      * @return boolean
      * @thrown RValidate\Exceptions\ValidateException
      */
-    public function validate($data) : \bool;
+    public function validate($data) : bool;
 }

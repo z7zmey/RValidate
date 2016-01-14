@@ -14,7 +14,7 @@ class Length implements Interfaces\Validator
         $this->length = (int)$length;
     }
     
-    public function validate($data) : \bool
+    public function validate($data) : bool
     {
         if (!is_string($data) || mb_strlen($data, 'utf-8') !== $this->length) {
             throw new Exceptions\ValidateException("must contain {$this->length} symbols");

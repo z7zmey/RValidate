@@ -14,7 +14,7 @@ class Max implements Interfaces\Validator
         $this->length = (float)$length;
     }
     
-    public function validate($data) : \bool
+    public function validate($data) : bool
     {
         if (
             (is_numeric($data) && $data <= $this->length) ||

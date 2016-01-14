@@ -14,7 +14,7 @@ class Contains implements Interfaces\Validator
         $this->str = $str;
     }
     
-    public function validate($data) : \bool
+    public function validate($data) : bool
     {
         if (false === strpos($data, $this->str)) {
             throw new Exceptions\ValidateException("must contain '{$this->str}'");

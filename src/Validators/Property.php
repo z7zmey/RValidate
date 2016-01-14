@@ -14,7 +14,7 @@ class Property implements Interfaces\Validator
         $this->propName = $propName;
     }
     
-    public function validate($data) : \bool
+    public function validate($data) : bool
     {
         if (!is_object($data) || !property_exists($data, $this->propName)) {
             throw new Exceptions\ValidateException("must have property '{$this->propName}'");

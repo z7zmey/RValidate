@@ -7,7 +7,7 @@ use RValidate\Exceptions;
 
 class IsFloat implements Interfaces\Validator
 {
-    public function validate($data) : \bool
+    public function validate($data) : bool
     {
         if (!is_float($data)) {
             throw new Exceptions\ValidateException('must be float');

@@ -16,15 +16,17 @@ class Rules extends AbstractIterator implements \RecursiveIterator
         $this->key = $key;
         $this->data = $data;
         
+        $has_sub_validators = false;
         foreach ($pattern as $val) {
             if ($val instanceof Sub) {
                 $this->setSub($val);
+                $has_sub_validators = true;
             } else {
                 $this->storage[] = $val;
             }
         }
         
-        if (is_array($this->data)) {
+        if ($has_sub_validators && is_array($this->data)) {
             $this->data = array_intersect_key($this->data, $this->validationMap);
         }
     }
@@ -53,7 +55,7 @@ class Rules extends AbstractIterator implements \RecursiveIterator
 
     // RecursiveIterator methods
 
-    public function hasChildren() : \bool {
+    public function hasChildren() : bool {
         return $this->storage[$this->position] instanceof Rules;
     }
 
