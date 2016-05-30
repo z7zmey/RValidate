@@ -4,7 +4,7 @@ namespace RValidate\Iterators;
 
 use RValidate\Sub;
 
-class Rules extends AbstractIterator implements \RecursiveIterator
+class Rules extends \ArrayIterator implements \RecursiveIterator
 {
     protected $data;
     protected $key;
@@ -13,6 +13,8 @@ class Rules extends AbstractIterator implements \RecursiveIterator
 
     public function __construct($key, $data, array $pattern)
     {
+        parent::__construct();
+        
         $this->key = $key;
         $this->data = $data;
         
@@ -22,7 +24,7 @@ class Rules extends AbstractIterator implements \RecursiveIterator
                 $this->setSub($val);
                 $has_sub_validators = true;
             } else {
-                $this->storage[] = $val;
+                $this->offsetSet(null, $val);
             }
         }
         
@@ -49,17 +51,17 @@ class Rules extends AbstractIterator implements \RecursiveIterator
             $this->data[$key] = $rule->getData();
             $this->validationMap[$key] = true;
 
-            $this->storage[] = $rule;
+            $this->offsetSet(null, $rule);
         }
     }
 
     // RecursiveIterator methods
 
     public function hasChildren() : bool {
-        return $this->storage[$this->position] instanceof Rules;
+        return $this->current() instanceof Rules;
     }
 
     public function getChildren() {
-        return $this->storage[$this->position];
+        return $this->current();
     }
 }

@@ -19,10 +19,12 @@ class RulesIterator extends \RecursiveIteratorIterator
     {
         $path = [$this->getInnerIterator()->getKey()];
 
-        if ($depth = $this->getDepth()) {
-            for ($i = $depth-1; $i>=0; $i--) {
-                array_unshift($path, $this->getSubIterator($i)->getKey());
-            }
+        if (!$depth = $this->getDepth()) {
+            return $path;
+        }
+
+        for ($i = $depth-1; $i>=0; $i--) {
+            array_unshift($path, $this->getSubIterator($i)->getKey());
         }
 
         return $path;
