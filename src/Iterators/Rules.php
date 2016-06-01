@@ -6,30 +6,25 @@ use RValidate\Sub;
 
 class Rules extends \ArrayIterator implements \RecursiveIterator
 {
-    protected $data;
+    protected $data = [];
     protected $key;
-    
-    private $validationMap = [];
 
     public function __construct($key, $data, array $pattern)
     {
         parent::__construct();
         
         $this->key = $key;
-        $this->data = $data;
         
-        $has_sub_validators = false;
         foreach ($pattern as $val) {
             if ($val instanceof Sub) {
-                $this->setSub($val);
-                $has_sub_validators = true;
+                $this->setSub($val, $data);
             } else {
                 $this->offsetSet(null, $val);
             }
         }
         
-        if ($has_sub_validators && is_array($this->data)) {
-            $this->data = array_intersect_key($this->data, $this->validationMap);
+        if (!$this->data) {
+            $this->data = $data;
         }
     }
 
@@ -43,16 +38,16 @@ class Rules extends \ArrayIterator implements \RecursiveIterator
         return $this->data;
     }
 
-    private function setSub(Sub $sub)
+    private function setSub(Sub $sub, $data)
     {
-        $filtered = $sub->getFilter()->filter($this->data);
+        $filtered = $sub->getFilter()->filter($data);
         foreach ($filtered as $key => $val) {
             $rule = new Rules($key, $val, $sub->getPattern());
             $this->data[$key] = $rule->getData();
-            $this->validationMap[$key] = true;
-
             $this->offsetSet(null, $rule);
         }
+        
+        return $filtered;
     }
 
     // RecursiveIterator methods
