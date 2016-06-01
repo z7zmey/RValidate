@@ -14,14 +14,13 @@ class IsCallableTest extends \PHPUnit_Framework_TestCase
 
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_exception()
     {
         $validator = new IsCallable();
 
-        $validator->validate('string');
+        $result = $validator->validate('string');
+
+        static::assertFalse($result);
     }
 }

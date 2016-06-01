@@ -9,10 +9,11 @@ class Cntrl implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (!ctype_cntrl($data)) {
-            throw new Exceptions\ValidateException('must be cntrl');
-        }
-        
-        return true;
+        return ctype_cntrl($data);
+    }
+
+    public function getError() : string
+    {
+        return 'must be cntrl';
     }
 }

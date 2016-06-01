@@ -14,14 +14,13 @@ class IsArrayTest extends \PHPUnit_Framework_TestCase
         
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_exception()
     {
         $validator = new IsArray();
 
-        $validator->validate(22);
+        $result = $validator->validate(22);
+
+        static::assertFalse($result);
     }
 }

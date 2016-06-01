@@ -14,14 +14,13 @@ class InstanceTest extends \PHPUnit_Framework_TestCase
 
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_exception()
     {
         $validator = new Instance('stdClass');
 
-        $validator->validate('wrong_string');
+        $result = $validator->validate('wrong_string');
+
+        static::assertFalse($result);
     }
 }

@@ -14,14 +14,13 @@ class LowerTest extends \PHPUnit_Framework_TestCase
 
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_exception()
     {
         $validator = new Lower();
 
-        $validator->validate('Wrong string');
+        $result = $validator->validate('Wrong string');
+
+        static::assertFalse($result);
     }
 }

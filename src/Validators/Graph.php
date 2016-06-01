@@ -9,10 +9,11 @@ class Graph implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (!ctype_graph($data)) {
-            throw new Exceptions\ValidateException('must be graph');
-        }
-        
-        return true;
+        return ctype_graph($data);
+    }
+
+    public function getError() : string
+    {
+        return 'must be graph';
     }
 }

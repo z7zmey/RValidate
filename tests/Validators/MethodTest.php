@@ -18,14 +18,13 @@ class MethodTest extends \PHPUnit_Framework_TestCase
 
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_exception()
     {
         $validator = new Method('example');
 
-        $validator->validate(new \stdClass());
+        $result = $validator->validate(new \stdClass());
+
+        static::assertFalse($result);
     }
 }

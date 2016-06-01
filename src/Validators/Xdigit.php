@@ -9,10 +9,11 @@ class Xdigit implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (!ctype_xdigit($data)) {
-            throw new Exceptions\ValidateException('must be xdigit');
-        }
-        
-        return true;
+        return ctype_xdigit($data);
+    }
+
+    public function getError() : string
+    {
+        return 'must be xdigit';
     }
 }

@@ -15,13 +15,12 @@ class UrlTest extends \PHPUnit_Framework_TestCase
         static::assertTrue($result);
     }
 
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
     public static function testValidate_exception()
     {
         $validator = new Url();
 
-        $validator->validate('example.com');
+        $result = $validator->validate('example.com');
+
+        static::assertFalse($result);
     }
 }

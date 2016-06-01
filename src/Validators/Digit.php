@@ -9,10 +9,11 @@ class Digit implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (!ctype_digit($data)) {
-            throw new Exceptions\ValidateException('must be digit');
-        }
-        
-        return true;
+        return ctype_digit($data);
+    }
+
+    public function getError() : string
+    {
+        return 'must be digit';
     }
 }

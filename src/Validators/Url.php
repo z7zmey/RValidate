@@ -9,10 +9,11 @@ class Url implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (false === filter_var($data, FILTER_VALIDATE_URL)) {
-            throw new Exceptions\ValidateException('must be url');
-        }
-        
-        return true;
+        return filter_var($data, FILTER_VALIDATE_URL) !== false;
+    }
+
+    public function getError() : string
+    {
+        return 'must be url';
     }
 }

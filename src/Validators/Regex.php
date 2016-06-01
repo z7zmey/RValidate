@@ -16,10 +16,11 @@ class Regex implements Interfaces\Validator
     
     public function validate($data) : bool
     {
-        if (!is_string($data) || !preg_match($this->regex, $data)) {
-            throw new Exceptions\ValidateException('must match ' . $this->regex);
-        }
-        
-        return true;
+        return is_string($data) && preg_match($this->regex, $data);
+    }
+
+    public function getError() : string
+    {
+        return 'must match ' . $this->regex;
     }
 }

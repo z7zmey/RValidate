@@ -11,16 +11,17 @@ class Keys implements Interfaces\Validator
     
     public function __construct(array $keys)
     {
-        $this->keys = array_flip($keys);
+        $this->keys = $keys;
     }
     
     public function validate($data) : bool
     {
-        if (!is_array($data) || array_diff_key($this->keys, $data)) {
-            $keysStr = implode(', ', array_keys($this->keys));
-            throw new Exceptions\ValidateException("must contain keys [{$keysStr}]");
-        }
+        $keys = array_flip($this->keys);
+        return is_array($data) && !array_diff_key($keys, $data);
+    }
 
-        return true;
+    public function getError() : string
+    {
+        return 'must contain keys [' . implode(', ', $this->keys) .']';
     }
 }

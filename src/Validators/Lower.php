@@ -9,10 +9,11 @@ class Lower implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (!ctype_lower($data)) {
-            throw new Exceptions\ValidateException('must be lower case');
-        }
-        
-        return true;
+        return ctype_lower($data);
+    }
+
+    public function getError() : string
+    {
+        return 'must be lower case';
     }
 }

@@ -17,14 +17,13 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
 
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_exception()
     {
         $validator = new Property('example');
 
-        $validator->validate(new \stdClass());
+        $result = $validator->validate(new \stdClass());
+
+        static::assertFalse($result);
     }
 }

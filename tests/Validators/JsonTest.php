@@ -15,13 +15,12 @@ class JsonTest extends \PHPUnit_Framework_TestCase
         static::assertTrue($result);
     }
 
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
     public static function testValidate_exception()
     {
         $validator = new Json();
 
-        $validator->validate('example');
+        $result = $validator->validate('example');
+
+        static::assertFalse($result);
     }
 }

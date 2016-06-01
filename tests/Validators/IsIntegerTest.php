@@ -14,14 +14,13 @@ class IsIntegerTest extends \PHPUnit_Framework_TestCase
 
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_exception()
     {
         $validator = new IsInteger();
 
-        $validator->validate('string');
+        $result = $validator->validate('string');
+
+        static::assertFalse($result);
     }
 }

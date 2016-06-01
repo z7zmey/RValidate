@@ -14,14 +14,13 @@ class RequiredTest extends \PHPUnit_Framework_TestCase
 
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_null_exception()
     {
         $validator = new Required();
 
-        $validator->validate(null);
+        $result = $validator->validate(null);
+
+        static::assertFalse($result);
     }
 }

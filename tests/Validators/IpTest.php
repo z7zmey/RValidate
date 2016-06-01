@@ -14,14 +14,13 @@ class IpTest extends \PHPUnit_Framework_TestCase
 
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_exception()
     {
         $validator = new Ip();
 
-        $validator->validate('255.255.25566');
+        $result = $validator->validate('255.255.25566');
+
+        static::assertFalse($result);
     }
 }

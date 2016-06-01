@@ -9,10 +9,11 @@ class Positive implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if ($data < 0) {
-            throw new Exceptions\ValidateException('must be positive');
-        }
-        
-        return true;
+        return $data >= 0;
+    }
+
+    public function getError() : string
+    {
+        return 'must be positive';
     }
 }

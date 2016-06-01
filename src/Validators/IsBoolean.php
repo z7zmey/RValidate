@@ -9,10 +9,11 @@ class IsBoolean implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (!is_bool($data)) {
-            throw new Exceptions\ValidateException('must be boolean');
-        }
-        
-        return true;
+        return is_bool($data);
+    }
+
+    public function getError() : string
+    {
+        return 'must be boolean';
     }
 }

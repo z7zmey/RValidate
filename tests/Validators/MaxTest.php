@@ -32,14 +32,13 @@ class MaxTest extends \PHPUnit_Framework_TestCase
 
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_exception()
     {
         $validator = new Max(3);
 
-        $validator->validate(5);
+        $result = $validator->validate(5);
+
+        static::assertFalse($result);
     }
 }

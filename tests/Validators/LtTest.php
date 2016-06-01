@@ -14,14 +14,13 @@ class LtTest extends \PHPUnit_Framework_TestCase
 
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_exception()
     {
         $validator = new Lt(5);
 
-        $validator->validate(7);
+        $result = $validator->validate(7);
+
+        static::assertFalse($result);
     }
 }

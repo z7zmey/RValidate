@@ -9,10 +9,11 @@ class IsResource implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (!is_resource($data)) {
-            throw new Exceptions\ValidateException('must be resource');
-        }
-        
-        return true;
+        return is_resource($data);
+    }
+
+    public function getError() : string
+    {
+        return 'must be resource';
     }
 }

@@ -9,10 +9,11 @@ class IsNumber implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (!is_numeric($data)) {
-            throw new Exceptions\ValidateException('must be numeric');
-        }
-        
-        return true;
+        return is_numeric($data);
+    }
+
+    public function getError() : string
+    {
+        return 'must be numeric';
     }
 }

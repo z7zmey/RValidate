@@ -9,10 +9,11 @@ class Ip implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (false === filter_var($data, FILTER_VALIDATE_IP)) {
-            throw new Exceptions\ValidateException('must be ip address');
-        }
-        
-        return true;
+        return filter_var($data, FILTER_VALIDATE_IP) !== false;
+    }
+
+    public function getError() : string
+    {
+        return 'must be ip address';
     }
 }

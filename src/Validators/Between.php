@@ -18,10 +18,11 @@ class Between implements Interfaces\Validator
     
     public function validate($data) : bool
     {
-        if (!is_numeric($data) || $data < $this->a || $data > $this->b) {
-            throw new Exceptions\ValidateException("must be between {$this->a} and {$this->b}");
-        }
-        
-        return true;
+        return is_numeric($data) && $data > $this->a && $data < $this->b;
+    }
+
+    public function getError() : string
+    {
+        return "must be between {$this->a} and {$this->b}";
     }
 }

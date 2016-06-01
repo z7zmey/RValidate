@@ -9,10 +9,11 @@ class Upper implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (!ctype_upper($data)) {
-            throw new Exceptions\ValidateException('must be upper case');
-        }
-        
-        return true;
+        return ctype_upper($data);
+    }
+
+    public function getError() : string
+    {
+        return 'must be upper case';
     }
 }

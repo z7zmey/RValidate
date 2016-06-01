@@ -9,10 +9,11 @@ class IsCallable implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (!is_callable($data)) {
-            throw new Exceptions\ValidateException('must be callable');
-        }
-        
-        return true;
+        return is_callable($data);
+    }
+
+    public function getError() : string
+    {
+        return 'must be callable';
     }
 }

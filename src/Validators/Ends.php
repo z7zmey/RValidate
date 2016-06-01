@@ -16,10 +16,11 @@ class Ends implements Interfaces\Validator
     
     public function validate($data) : bool
     {
-        if ($this->str !== mb_substr($data, -mb_strlen($this->str, 'utf-8'), null, 'utf-8')) {
-            throw new Exceptions\ValidateException("must ends '{$this->str}'");
-        }
-        
-        return true;
+        return $this->str === mb_substr($data, -mb_strlen($this->str, 'utf-8'), null, 'utf-8');
+    }
+
+    public function getError() : string
+    {
+        return "must ends '{$this->str}'";
     }
 }

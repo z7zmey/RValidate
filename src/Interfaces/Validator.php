@@ -10,4 +10,6 @@ interface Validator
      * @thrown RValidate\Exceptions\ValidateException
      */
     public function validate($data) : bool;
+    
+    public function getError() : string;
 }

@@ -27,10 +27,11 @@ class In implements Interfaces\Validator
     
     public function validate($data) : bool
     {
-        if (!in_array($data, $this->haystack, $this->strict)) {
-            throw new Exceptions\ValidateException($this->message);
-        }
-        
-        return true;
+        return in_array($data, $this->haystack, $this->strict);
+    }
+
+    public function getError() : string
+    {
+        return $this->message;
     }
 }

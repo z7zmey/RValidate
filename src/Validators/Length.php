@@ -16,10 +16,11 @@ class Length implements Interfaces\Validator
     
     public function validate($data) : bool
     {
-        if (!is_string($data) || mb_strlen($data, 'utf-8') !== $this->length) {
-            throw new Exceptions\ValidateException("must contain {$this->length} symbols");
-        }
-        
-        return true;
+        return is_string($data) && mb_strlen($data, 'utf-8') === $this->length;
+    }
+
+    public function getError() : string
+    {
+        return "must contain {$this->length} symbols";
     }
 }

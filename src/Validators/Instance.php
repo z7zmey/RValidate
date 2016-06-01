@@ -16,10 +16,11 @@ class Instance implements Interfaces\Validator
     
     public function validate($data) : bool
     {
-        if (!is_object($data) || !($data instanceof $this->className)) {
-            throw new Exceptions\ValidateException("must be instance of '{$this->className}'");
-        }
-        
-        return true;
+        return is_object($data) && $data instanceof $this->className;
+    }
+
+    public function getError() : string
+    {
+        return "must be instance of '{$this->className}'";
     }
 }

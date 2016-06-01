@@ -14,14 +14,13 @@ class UpperTest extends \PHPUnit_Framework_TestCase
 
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_exception()
     {
         $validator = new Upper();
 
-        $validator->validate('Wrong');
+        $result = $validator->validate('Wrong');
+
+        static::assertFalse($result);
     }
 }

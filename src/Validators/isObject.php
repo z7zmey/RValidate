@@ -9,10 +9,11 @@ class IsObject implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (!is_object($data)) {
-            throw new Exceptions\ValidateException('must be object');
-        }
-        
-        return true;
+        return is_object($data);
+    }
+
+    public function getError() : string
+    {
+        return 'must be object';
     }
 }

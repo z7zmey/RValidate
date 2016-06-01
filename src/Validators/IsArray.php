@@ -9,10 +9,11 @@ class IsArray implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (!is_array($data)) {
-            throw new Exceptions\ValidateException('must be array');
-        }
-        
-        return true;
+        return is_array($data);
+    }
+
+    public function getError() : string
+    {
+        return 'must be array';
     }
 }

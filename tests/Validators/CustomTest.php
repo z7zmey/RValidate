@@ -16,10 +16,7 @@ class CustomTest extends \PHPUnit_Framework_TestCase
 
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_exception()
     {
         $validator = new Custom(function() {
@@ -28,6 +25,6 @@ class CustomTest extends \PHPUnit_Framework_TestCase
 
         $result = $validator->validate('wrong');
 
-        static::assertTrue($result);
+        static::assertFalse($result);
     }
 }

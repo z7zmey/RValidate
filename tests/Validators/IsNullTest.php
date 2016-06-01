@@ -14,14 +14,13 @@ class IsNullTest extends \PHPUnit_Framework_TestCase
 
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_exception()
     {
         $validator = new IsNull();
 
-        $validator->validate(1);
+        $result = $validator->validate(1);
+
+        static::assertFalse($result);
     }
 }

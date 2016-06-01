@@ -14,24 +14,22 @@ class RegexTest extends \PHPUnit_Framework_TestCase
 
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_exception()
     {
         $validator = new Regex('/success/');
 
-        $validator->validate('wrong_string');
-    }
+        $result = $validator->validate('wrong_string');
 
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+        static::assertFalse($result);
+    }
+    
     public static function testValidate_notstring_exception()
     {
         $validator = new Regex('/success/');
 
-        $validator->validate(['wrong_string']);
+        $result = $validator->validate(['wrong_string']);
+
+        static::assertFalse($result);
     }
 }

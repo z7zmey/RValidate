@@ -9,10 +9,11 @@ class Date implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (false === strtotime($data)) {
-            throw new Exceptions\ValidateException('must be date');
-        }
-        
-        return true;
+        return strtotime($data) !== false;
+    }
+
+    public function getError() : string
+    {
+        return 'must be date';
     }
 }

@@ -9,10 +9,11 @@ class IsString implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (!is_string($data)) {
-            throw new Exceptions\ValidateException('must be string');
-        }
-        
-        return true;
+        return is_string($data);
+    }
+
+    public function getError() : string
+    {
+        return 'must be string';
     }
 }

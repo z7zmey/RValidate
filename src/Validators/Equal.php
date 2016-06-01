@@ -16,10 +16,11 @@ class Equal implements Interfaces\Validator
     
     public function validate($data) : bool
     {
-        if ($data !== $this->equal) {
-            throw new Exceptions\ValidateException('must equal');
-        }
-        
-        return true;
+        return $data === $this->equal;
+    }
+
+    public function getError() : string
+    {
+        return 'must equal';
     }
 }

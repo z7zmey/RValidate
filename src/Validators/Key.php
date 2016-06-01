@@ -16,10 +16,11 @@ class Key implements Interfaces\Validator
     
     public function validate($data) : bool
     {
-        if (!is_array($data) || !array_key_exists($this->key, $data)) {
-            throw new Exceptions\ValidateException('must contain key ' . $this->key);
-        }
+        return is_array($data) && array_key_exists($this->key, $data);
+    }
 
-        return true;
+    public function getError() : string
+    {
+        return 'must contain key ' . $this->key;
     }
 }

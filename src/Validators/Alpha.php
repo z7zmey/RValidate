@@ -9,10 +9,11 @@ class Alpha implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (!ctype_alpha($data)) {
-            throw new Exceptions\ValidateException('must be alpha');
-        }
-        
-        return true;
+        return ctype_alpha($data);
+    }
+
+    public function getError() : string
+    {
+        return 'must be alpha';
     }
 }

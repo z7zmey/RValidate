@@ -9,10 +9,11 @@ class Prnt implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (!ctype_print($data)) {
-            throw new Exceptions\ValidateException('must be print');
-        }
-        
-        return true;
+        return ctype_print($data);
+    }
+
+    public function getError() : string
+    {
+        return 'must be print';
     }
 }

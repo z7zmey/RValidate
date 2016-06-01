@@ -9,10 +9,11 @@ class Negative implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if ($data >= 0) {
-            throw new Exceptions\ValidateException('must be negative');
-        }
-        
-        return true;
+        return $data < 0;
+    }
+
+    public function getError() : string
+    {
+        return 'must be negative';
     }
 }

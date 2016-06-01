@@ -16,10 +16,11 @@ class Contains implements Interfaces\Validator
     
     public function validate($data) : bool
     {
-        if (false === strpos($data, $this->str)) {
-            throw new Exceptions\ValidateException("must contain '{$this->str}'");
-        }
-        
-        return true;
+        return strpos($data, $this->str) !== false;
+    }
+
+    public function getError() : string
+    {
+        return "must contain '{$this->str}'";
     }
 }

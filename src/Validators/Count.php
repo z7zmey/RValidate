@@ -16,10 +16,11 @@ class Count implements Interfaces\Validator
     
     public function validate($data) : bool
     {
-        if (!is_array($data) || count($data) !== $this->count) {
-            throw new Exceptions\ValidateException("must contain {$this->count} values");
-        }
-        
-        return true;
+        return is_array($data) && count($data) === $this->count;
+    }
+
+    public function getError() : string
+    {
+        return "must contain {$this->count} values";
     }
 }

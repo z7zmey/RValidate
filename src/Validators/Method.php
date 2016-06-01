@@ -16,10 +16,11 @@ class Method implements Interfaces\Validator
     
     public function validate($data) : bool
     {
-        if (!is_object($data) || !method_exists($data, $this->method)) {
-            throw new Exceptions\ValidateException("must have method '{$this->method}'");
-        }
-        
-        return true;
+        return is_object($data) && method_exists($data, $this->method);
+    }
+
+    public function getError() : string
+    {
+        return "must have method '{$this->method}'";
     }
 }

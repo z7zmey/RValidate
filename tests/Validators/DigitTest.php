@@ -14,14 +14,13 @@ class DigitTest extends \PHPUnit_Framework_TestCase
 
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_exception()
     {
         $validator = new Digit();
 
-        $validator->validate('wrong string!');
+        $result = $validator->validate('wrong string!');
+
+        static::assertFalse($result);
     }
 }

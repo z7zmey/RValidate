@@ -12,11 +12,12 @@ class NotEmpty implements Interfaces\Validator
         if (is_string($data)) {
             $data = trim($data);
         }
-
-        if ($data === null || $data === '' || $data === []) {
-            throw new Exceptions\ValidateException('must not be empty');
-        }
         
-        return true;
+        return $data !== null && $data !== '' && $data !== [];
+    }
+
+    public function getError() : string
+    {
+        return 'must not be empty';
     }
 }

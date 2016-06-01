@@ -2,26 +2,25 @@
 
 namespace Validators;
 
-use RValidate\Validators\isObject;
+use RValidate\Validators\IsObject;
 
 class IsObjectTest extends \PHPUnit_Framework_TestCase
 {
     public function testValidate()
     {
-        $validator = new isObject();
+        $validator = new IsObject();
 
         $result = $validator->validate(new \stdClass());
 
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_exception()
     {
-        $validator = new isObject();
+        $validator = new IsObject();
 
-        $validator->validate('string');
+        $result = $validator->validate('string');
+
+        static::assertFalse($result);
     }
 }

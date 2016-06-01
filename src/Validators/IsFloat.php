@@ -9,10 +9,11 @@ class IsFloat implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (!is_float($data)) {
-            throw new Exceptions\ValidateException('must be float');
-        }
-        
-        return true;
+        return is_float($data);
+    }
+
+    public function getError() : string
+    {
+        return 'must be float';
     }
 }

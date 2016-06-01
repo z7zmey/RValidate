@@ -14,14 +14,13 @@ class KeysTest extends \PHPUnit_Framework_TestCase
 
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_exception()
     {
         $validator = new Keys(['foo', 'bar', 'baz']);
 
-        $validator->validate(['foo' => 'foo', 'bar' => 'bar']);
+        $result = $validator->validate(['foo' => 'foo', 'bar' => 'bar']);
+
+        static::assertFalse($result);
     }
 }

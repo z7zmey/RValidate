@@ -9,10 +9,11 @@ class Email implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (false === filter_var($data, FILTER_VALIDATE_EMAIL)) {
-            throw new Exceptions\ValidateException('must be email');
-        }
-        
-        return true;
+        return filter_var($data, FILTER_VALIDATE_EMAIL) !== false;
+    }
+
+    public function getError() : string
+    {
+        return 'must be email';
     }
 }

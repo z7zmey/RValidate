@@ -15,13 +15,12 @@ class XdigitTest extends \PHPUnit_Framework_TestCase
         static::assertTrue($result);
     }
 
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
     public static function testValidate_exception()
     {
         $validator = new Xdigit();
 
-        $validator->validate('wrong');
+        $result = $validator->validate('wrong');
+
+        static::assertFalse($result);
     }
 }

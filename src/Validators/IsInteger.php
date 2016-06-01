@@ -9,10 +9,11 @@ class IsInteger implements Interfaces\Validator
 {
     public function validate($data) : bool
     {
-        if (!is_int($data)) {
-            throw new Exceptions\ValidateException('must be integer');
-        }
-        
-        return true;
+        return is_int($data);
+    }
+
+    public function getError() : string
+    {
+        return 'must be integer';
     }
 }

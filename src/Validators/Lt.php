@@ -16,10 +16,11 @@ class Lt implements Interfaces\Validator
     
     public function validate($data) : bool
     {
-        if (!is_numeric($data) || $data >= $this->count) {
-            throw new Exceptions\ValidateException("must be lower than {$this->count}");
-        }
-        
-        return true;
+        return is_numeric($data) && $data < $this->count;
+    }
+
+    public function getError() : string
+    {
+        return "must be lower than {$this->count}";
     }
 }

@@ -18,9 +18,8 @@ class Validator
         $iterator = new Iterators\RulesIterator($rules);
 
         foreach ($iterator as $k => $rule) {
-            try {
-                $rule->validate($iterator->getData());
-            } catch (Exceptions\ValidateException $e) {
+            if (!$rule->validate($iterator->getData())) {
+                $e = new Exceptions\ValidateException($rule->getError());
                 $e->setPath($iterator->getPath());
                 $exceptions->add($e);
             }

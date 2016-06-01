@@ -10,18 +10,17 @@ class BetweenTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new Between(1,10);
 
-        $result = $validator->validate(10);
+        $result = $validator->validate(9);
 
         static::assertTrue($result);
     }
-
-    /**
-     * @expectedException \RValidate\Exceptions\ValidateException
-     */
+    
     public static function testValidate_exception()
     {
         $validator = new Between(7,10);
 
-        $validator->validate(5);
+        $result = $validator->validate(5);
+
+        static::assertFalse($result);
     }
 }
