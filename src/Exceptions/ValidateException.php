@@ -1,31 +1,34 @@
 <?php
 namespace RValidate\Exceptions;
 
+use \RValidate\Iterators\Errors;
+use \RValidate\Iterators\ErrorsIterator;
+
 class ValidateException extends Exception
 {
-    private $errors = [];
+    private $errors;
 
     /**
-     * @return array
+     * @return Errors
      */
-    public function getErrors()
+    public function getErrors() : Errors
     {
         return $this->errors;
     }
 
     /**
-     * @param array $errors
+     * @return ErrorsIterator
+     */
+    public function getErrorsIterator() : ErrorsIterator
+    {
+        return new ErrorsIterator($this->errors);
+    }
+
+    /**
+     * @param \RValidate\Iterators\Errors $errors
      */
     public function setErrors($errors)
     {
         $this->errors = $errors;
-    }
-
-    /**
-     * @param array $error
-     */
-    public function addError($error)
-    {
-        $this->errors[] = $error;
     }
 }
