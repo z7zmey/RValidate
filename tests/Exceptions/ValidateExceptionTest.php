@@ -6,19 +6,30 @@ use RValidate\Exceptions\ValidateException;
 
 class ValidateExceptionTest extends \PHPUnit_Framework_TestCase
 {
-    /* @var ValidateException */
-    private static $e;
-    
-    public static function setUpBeforeClass()
+    public function testSetErrors()
     {
-        self::$e = new ValidateException('message');
+        $e = new ValidateException('message');
+        $errors = [[
+            'path' => [1,'test'],
+            'message' => 'some message',
+        ]];
+        $e->setErrors($errors);
+
+        self::assertEquals($errors, $e->getErrors());
     }
-    
-    public function testSetPath()
+
+    public function testAddError()
     {
-        $path = ['test'];
-        self::$e->setPath($path);
+        $e = new ValidateException('message');
         
-        self::assertEquals($path, self::$e->getPath());
+        $error = [
+            'path' => [1,'test'],
+            'message' => 'some message',
+        ];
+        $errors = [$error];
+        
+        $e->addError($error);
+
+        self::assertEquals($errors, $e->getErrors());
     }
 }

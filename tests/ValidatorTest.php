@@ -24,7 +24,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RValidate\Exceptions\ValidateExceptions
+     * @expectedException \RValidate\Exceptions\ValidateException
      */
     public function test_scalar_exception()
     {
@@ -54,7 +54,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RValidate\Exceptions\ValidateExceptions
+     * @expectedException \RValidate\Exceptions\ValidateException
      */
     public function test_array_exception()
     {
@@ -92,7 +92,8 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RValidate\Exceptions\ValidateExceptions
+     * @expectedException \RValidate\Exceptions\ValidateException
+     * @throws RValidate\Exceptions\Exception
      */
     public function test_nestedArray_exception()
     {
@@ -123,7 +124,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RValidate\Exceptions\ValidateExceptions
+     * @expectedException \RValidate\Exceptions\ValidateException
      */
     public function test_short_exception()
     {
@@ -147,19 +148,19 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
 
         $expected = [
             [
-                'path' => '[]',
+                'path' => [''],
                 'message' => 'must contain key Param_2'
             ],
             [
-                'path' => '[][param_1][param_2]',
+                'path' => ['', 'param_1', 'param_2'],
                 'message' => 'must be integer'
             ]
         ];
 
         try {
             Validator::run($data, $pattern);
-        } catch (\RValidate\Exceptions\ValidateExceptions $e) {
-            $messagesArray = $e->getMessages();
+        } catch (\RValidate\Exceptions\ValidateException $e) {
+            $messagesArray = $e->getErrors();
 
             static::assertEquals($expected, $messagesArray);
         }

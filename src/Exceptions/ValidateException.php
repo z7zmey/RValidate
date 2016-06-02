@@ -3,23 +3,29 @@ namespace RValidate\Exceptions;
 
 class ValidateException extends Exception
 {
-    private $path = [];
+    private $errors = [];
 
     /**
      * @return array
      */
-    public function getPath()
+    public function getErrors()
     {
-        return $this->path;
+        return $this->errors;
     }
 
     /**
-     * @param array $path
+     * @param array $errors
      */
-    public function setPath($path)
+    public function setErrors($errors)
     {
-        $this->path = $path;
+        $this->errors = $errors;
     }
-    
-    
+
+    /**
+     * @param array $error
+     */
+    public function addError($error)
+    {
+        $this->errors[] = $error;
+    }
 }

@@ -2,11 +2,13 @@
 
 namespace RValidate\Iterators;
 
+use RValidate\Interfaces\Validator;
+
 /**
  * Class RulesIterator
  * @method Rules getInnerIterator()
  * @method Rules getSubIterator($level)
- * @method mixed getData()
+ * @method Validator current()
  */
 class RulesIterator extends \RecursiveIteratorIterator
 {

@@ -12,21 +12,22 @@ class Validator
             $pattern = [$pattern];
         }
         
-        $exceptions = new Exceptions\ValidateExceptions();
+        $exception = new Exceptions\ValidateException();
 
         $rules = new Iterators\Rules(null, $data, $pattern);
         $iterator = new Iterators\RulesIterator($rules);
 
         foreach ($iterator as $k => $rule) {
-            if (!$rule->validate($iterator->getData())) {
-                $e = new Exceptions\ValidateException($rule->getError());
-                $e->setPath($iterator->getPath());
-                $exceptions->add($e);
+            if (!$rule->validate($iterator->getInnerIterator()->getData())) {
+                $exception->addError([
+                    'path' => $iterator->getPath(),
+                    'message' => $rule->getError(),
+                ]);
             }
         }
         
-        if ($exceptions->count()) {
-            throw $exceptions;
+        if ($exception->getErrors()) {
+            throw $exception;
         }
         
         return $rules->getData();
