@@ -17,7 +17,6 @@ $ composer require z7zmey/rvalidate
 ```php
 use RValidate\Validator;
 use RValidate\Sub;
-use RValidate\Pattern;
 use RValidate\Validators as V;
 use RValidate\Filters as F;
 
@@ -37,9 +36,9 @@ $pattern = [
 
 try {
     $result = Validator::run($data, $pattern);
-} catch (\RValidate\Exceptions\ValidateExceptions $e) {
-    foreach ($e->getMessages() as $err) {
-        echo $err['path'] . ' -> ' . $err['message'] . "\n";
+} catch (\RValidate\Exceptions\ValidateException $e) {
+    foreach ($e->getErrorsIterator() as $error) {
+        echo $error . PHP_EOL;
     }
 }
 ```
